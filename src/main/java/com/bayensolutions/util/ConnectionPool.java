@@ -11,14 +11,11 @@ import java.util.*;
 // Singleton pattern
 public class  ConnectionPool {
 
-    private static final String BUNDLE_NAME = "src/main/resources/ConnectionPool.properties";
+    private static final String BUNDLE_NAME = "resources/ConnectionPool.properties";
 
-    //private String jdbcURL="jdbc:mysql://localhost:3306/bazeni";
-    //private String username="root";
-    //private String password="root";
-    private String jdbcURL;
-    private String username;
-    private String password;
+    private String jdbcURL="jdbc:mysql://localhost:3306/bayensolutions";
+    private String username="root";
+    private String password="root";
     private int preconnectCount;
     private int maxIdleConnections;
     private int maxConnections;

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <tabs>
+        <Tab fx:id="person" text="Osobe">
+            <content>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="employee" text="Zaposleni" >
+                            <content>
+                                <BorderPane>
+                                    <bottom>
+                                        <TableView fx:id="tableView" prefHeight="304.0" prefWidth="600.0"
+                                                   BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="id" prefWidth="75.0" text="Id"/>
+                                                <TableColumn fx:id="name" prefWidth="75.0" text="Ime"/>
+                                                <TableColumn fx:id="surname" prefWidth="75.0" text="Prezime"/>
+                                                <TableColumn fx:id="telephone" prefWidth="75.0" text="Telefon"/>
+                                                <TableColumn fx:id="place" prefWidth="75.0" text="Mjesto"/>
+                                                <TableColumn fx:id="salary" prefWidth="75.0" text="Plata"/>
+                                                <TableColumn fx:id="uniqueIdentifier" prefWidth="75.0" text="JMBG"/>
+                                                <TableColumn fx:id="role" prefWidth="75.0" text="Uloga"/>
+                                            </columns>
+                                        </TableView>
+                                    </bottom>
+                                    <top>
+                                        <HBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER_RIGHT">
+                                            <children>
+                                                <Button mnemonicParsing="false" text="Dodaj"/>
+                                                <Button mnemonicParsing="false" text="Obriši"/>
+                                                <Button mnemonicParsing="false" text="Izmijeni"/>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Klijenti">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+        </Tab>
+        <Tab text="Narudžbe"/>
+        <Tab text="Materijali"/>
+        <Tab text="Artikli"/>
+    </tabs>
+</TabPane>
