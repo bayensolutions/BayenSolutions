@@ -27,9 +27,6 @@ public class Place {
 
     @Override
     public String toString() {
-        return "Place{" +
-                "zipCode='" + zipCode + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return zipCode + ',' + name;
     }
 }

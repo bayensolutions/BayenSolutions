@@ -27,10 +27,7 @@ public class EmployeeRole {
 
     @Override
     public String toString() {
-        return "EmployeeRole{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                '}';
+        return role;
     }
 
 }

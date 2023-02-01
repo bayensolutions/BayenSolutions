@@ -8,4 +8,6 @@ module com.example.bazeni {
     exports com.bayensolutions;
     opens com.bayensolutions.controllers to javafx.fxml;
     exports com.bayensolutions.controllers;
+    opens com.bayensolutions.model to javafx.fxml;
+    exports  com.bayensolutions.model;
 }

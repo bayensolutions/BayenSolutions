@@ -212,7 +212,6 @@ public class PersonDAOImplementation implements PersonDAO {
 
             while (rs.next())
                 list.add(new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),new Place(rs.getString(5),rs.getString(6)), rs.getString(7),rs.getString(8),rs.getDouble(9),new EmployeeRole(rs.getInt(10),rs.getString(11)),rs.getString(12)));
-            //System.out.println(list.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
