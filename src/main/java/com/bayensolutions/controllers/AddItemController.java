@@ -320,6 +320,7 @@ public class AddItemController implements Initializable {
         insertQuantityController.resetValues();
         totalPrice=0.0;
         order=null;
+        mainWindowController.searchCreatedOrders();
         borderPane.getScene().getWindow().hide();
     }
 
