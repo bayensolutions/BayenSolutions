@@ -1,13 +1,14 @@
 package com.bayensolutions.util;
 
 public class Util {
-    public static final String ERROR = "Error!";
-    public static final String WARNING = "Warning";
-    public static final String INFO = "Information";
-    public static final String NO_PARAMS = "No input parameters provided.";
-    public static final String ADD_SUCCESS = "Successfully added.";
-    public static final String ADD_FAILURE = "Unsuccessfully added.";
-    public static final String DELETE_SUCCESS = "Successfully deleted.";
-    public static final String DELETE_FAILURE = "Unsuccessfully deleted.";
-    public static final String SELECT_BEFORE_DELETE = "Please select item to be deleted.";
+    public static final String ERROR = "Greška!";
+    public static final String WARNING = "Upozorenje!";
+    public static final String INFO = "Informacija";
+    public static final String NO_PARAMS = "Nedostaju parametri za unos!";
+    public static final String ADD_SUCCESS = "Uspješno dodato!";
+    public static final String ADD_FAILURE = "Neuspješno dodato!";
+    public static final String DELETE_SUCCESS = "Uspješno obrisano!";
+    public static final String DELETE_FAILURE = "Neuspješno obrisano!";
+    public static final String SELECT_BEFORE_DELETE = "Označite stavku prije brisanja!";
+    public static final String ITEM_ALREADY_ADDED="Artikal već postoji na narudžbi!";
 }

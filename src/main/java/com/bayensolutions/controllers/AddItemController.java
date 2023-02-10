@@ -2,10 +2,7 @@ package com.bayensolutions.controllers;
 
 import com.bayensolutions.dao.mysql.*;
 import com.bayensolutions.model.*;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +27,7 @@ import java.util.ResourceBundle;
 public class AddItemController implements Initializable {
     private MainWindowController mainWindowController;
     private static Order order;
+    private static Double totalPrice=0.0;
 
     public MainWindowController getMainWindowController() {
         return mainWindowController;
@@ -44,7 +43,6 @@ public class AddItemController implements Initializable {
 
     public void setOrder(Order order) {
         this.order = order;
-        System.out.println(order.toString());
     }
 
     @FXML
@@ -57,13 +55,19 @@ public class AddItemController implements Initializable {
     private TableColumn<OrderItem,String> itemName;
 
     @FXML
-    private TableColumn<OrderItem,Double> itemPrice;
+    private TableColumn<OrderItem,String> itemPrice;
 
     @FXML
-    private TableColumn<OrderItem, Integer> itemQuantity;
+    private TableColumn<OrderItem,Integer> itemQuantity;
+
+    @FXML
+    private Label totalPriceLabel=new Label();
 
     @FXML
     private Button addPoolButton;
+
+    @FXML
+    private Button finishButton;
 
     @FXML
     private TableView<Pool> poolTableView;
@@ -171,6 +175,7 @@ public class AddItemController implements Initializable {
         initializeRevetments();
         initializeEquipment();
         initializeItems();
+        initializeTotalPrice();
     }
 
     public void initializePools(){
@@ -219,9 +224,15 @@ public class AddItemController implements Initializable {
 
     public void initializeItems(){
         orderItemDAOImplementation=new OrderItemDAOImplementation();
-        //itemName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getItem().getName()));
+        itemName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getItem().getName()));
+        itemPrice.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getItem().getPrice().toString()));
         //itemPrice.setCellValueFactory(cellData->new SimpleDoubleProperty(cellData.getValue().getItem().getPrice()).doubleValue());
         itemQuantity.setCellValueFactory(new PropertyValueFactory<OrderItem,Integer>("quantity"));
+        searchItems();
+    }
+
+    public void initializeTotalPrice(){
+        totalPriceLabel.setText(totalPrice.toString());
     }
 
     public void searchPools(){
@@ -274,14 +285,11 @@ public class AddItemController implements Initializable {
 
     @FXML
     private void addPool() throws IOException {
-        System.out.println("DODAJ BAZEN");
         ObservableList<Pool> selectedPool;
         selectedPool= poolTableView.getSelectionModel().getSelectedItems();
         InsertQuantityController insertQuantityController=new InsertQuantityController();
-        insertQuantityController.initializeItemNameAndPrice(new Item(selectedPool.get(0).getId(),selectedPool.get(0).getName(),selectedPool.get(0).getPrice(),selectedPool.get(0).getDescription()));
-        insertQuantityController.showStage(mainWindowController);
-        //EditEmployeeController editEmployeeController=new EditEmployeeController();
-        //editEmployeeController.showStage(selectedEmployee.get(0),this);
+        if(InsertQuantityController.setItem(new Item(selectedPool.get(0).getId(),selectedPool.get(0).getName(),selectedPool.get(0).getPrice(),selectedPool.get(0).getDescription())))
+            insertQuantityController.showStage(this);
     }
 
     @FXML
@@ -300,11 +308,23 @@ public class AddItemController implements Initializable {
     }
 
     public void registerItem(Item item, Integer quantity){
-        System.out.println("Naziv artikla: "+item.getName());
-        System.out.println("Cijena artikla: "+item.getPrice());
-        System.out.println("Kolicina: "+quantity);
         orderItemDAOImplementation.addOrderItem(order,item,quantity);
-        initializeItems();
         searchItems();
+        totalPrice+=quantity*item.getPrice();
+        initializeTotalPrice();
+    }
+
+    public void finish(){
+        changeTotalPrice(order,totalPrice);
+        InsertQuantityController insertQuantityController=new InsertQuantityController();
+        insertQuantityController.resetValues();
+        totalPrice=0.0;
+        order=null;
+        borderPane.getScene().getWindow().hide();
+    }
+
+    public void changeTotalPrice(Order order, Double totalPrice){
+        OrderDAOImplementation orderDAOImplementation=new OrderDAOImplementation();
+        orderDAOImplementation.changeTotalPrice(order,totalPrice);
     }
 }

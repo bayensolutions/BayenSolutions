@@ -4,6 +4,9 @@ import com.bayensolutions.dao.ItemDAO;
 import com.bayensolutions.model.Item;
 import com.bayensolutions.util.ConnectionPool;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ItemDAOImplementation implements ItemDAO {
 
@@ -64,7 +67,7 @@ public class ItemDAOImplementation implements ItemDAO {
         CallableStatement callableStatement = null;
         boolean result = false;
         ResultSet rs;
-        Item item=null;
+        List<Item> items=new ArrayList<>();
         String callStatement = "{call dohvatanjeArtikla(?)}";
 
         try {
@@ -72,7 +75,9 @@ public class ItemDAOImplementation implements ItemDAO {
             callableStatement = connection.prepareCall(callStatement);
             callableStatement.setInt(1, id);
             rs=callableStatement.executeQuery();
-            item=new Item(id,rs.getString(2),rs.getDouble(3),rs.getString(4));
+            while (rs.next())
+                items.add(new Item(rs.getInt(1),rs.getString(2),rs.getDouble(3),rs.getString(4)));
+            return items.get(0);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,6 +85,6 @@ public class ItemDAOImplementation implements ItemDAO {
             ConnectionPool.getInstance().checkIn(connection);
             //DBUtil.close(callableStatement);
         }
-        return item;
+        return null;
     }
 }

@@ -152,7 +152,7 @@ public class OrderDAOImplementation implements OrderDAO {
         CallableStatement callableStatement = null;
         ResultSet rs;
         boolean result=false;
-        String callStatement = "{call promjenaUkupneCijene(?,?)}";
+        String callStatement = "{call izračunavanjeUkupneCijene(?,?)}";
 
         try {
             connection = ConnectionPool.getInstance().checkOut();

@@ -17,15 +17,36 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class InsertQuantityController implements Initializable {
-
     private static Item item;
+
+    public static Item getItem() {
+        return item;
+    }
+
+    public static boolean setItem(Item item) {
+        InsertQuantityController.item = item;
+        for(Item selectedItem:selectedItems){
+            if(selectedItem.getId()==item.getId()){
+                JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.ITEM_ALREADY_ADDED);
+                return false;
+            }
+        }
+        selectedItems.add(item);
+        System.out.println(selectedItems);
+        return true;
+    }
+
+    private static List<Item> selectedItems=new ArrayList<>();
+
+    private AddItemController addItemController;
 
     @FXML
     private BorderPane borderPane;
@@ -56,14 +77,9 @@ public class InsertQuantityController implements Initializable {
             }
         });
     }
-
-    public void initializeItemNameAndPrice(Item item){
-        this.item=item;
-    }
-
-    public void showStage(MainWindowController mainWindowController) throws IOException {
+    public void showStage(AddItemController addItemController) throws IOException {
         FXMLLoader loader = new FXMLLoader(InsertQuantityController.class.getResource("/fxml/InsertQuantity.fxml"));
-        Scene scene = new Scene(loader.load(), 600, 400, Color.TRANSPARENT);
+        Scene scene = new Scene(loader.load(), 440, 300, Color.TRANSPARENT);
         Stage stage = new Stage();
         stage.setTitle("Bayen solutions - dodavanje količine");
         String path = "resources/photos/icon.png";
@@ -72,8 +88,13 @@ public class InsertQuantityController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        //((AddItemController) loader.getController()).addParameters(mainWindowController);
+        ((InsertQuantityController) loader.getController()).setAddItemController(addItemController);
     }
+
+    public void setAddItemController(AddItemController addItemController){
+        this.addItemController=addItemController;
+    }
+
     @FXML
     public void addItem(){
         String quantityString=label.getText();
@@ -81,8 +102,12 @@ public class InsertQuantityController implements Initializable {
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
             return;
         }
-        borderPane.getScene().getWindow().hide();
-        AddItemController addItemController=new AddItemController();
         addItemController.registerItem(item,Integer.parseInt(quantityString));
+        borderPane.getScene().getWindow().hide();
+    }
+
+    public void resetValues(){
+        selectedItems.clear();
+        item=null;
     }
 }

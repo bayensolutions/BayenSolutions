@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class MainWindowController implements Initializable{
+public class MainWindowController implements Initializable {
 
     @FXML
     private BorderPane borderPane;
@@ -80,73 +81,73 @@ public class MainWindowController implements Initializable{
     private TableColumn<Person, String> clientName;
 
     @FXML
-    private TableColumn<Person,String> clientSurname;
+    private TableColumn<Person, String> clientSurname;
 
     @FXML
-    private TableColumn<Person,String> clientTelephone;
+    private TableColumn<Person, String> clientTelephone;
 
     @FXML
     private TableColumn<Person, String> clientPlace;
 
     @FXML
-    private TableColumn<Order,Integer> createdOrderId;
+    private TableColumn<Order, Integer> createdOrderId;
 
     @FXML
-    private TableColumn<Order,Integer> orderInMadeId;
+    private TableColumn<Order, Integer> orderInMadeId;
 
     @FXML
-    private TableColumn<Order,Integer> closedOrderId;
+    private TableColumn<Order, Integer> closedOrderId;
 
     @FXML
     private TableColumn<Order, LocalDateTime> createdOrderDate;
 
     @FXML
-    private TableColumn<Order,LocalDateTime> orderInMadeDate;
+    private TableColumn<Order, LocalDateTime> orderInMadeDate;
 
     @FXML
-    private TableColumn<Order,LocalDateTime> closedOrderDate;
+    private TableColumn<Order, LocalDateTime> closedOrderDate;
 
     @FXML
-    private TableColumn<Order,String> createdOrderClient;
+    private TableColumn<Order, String> createdOrderClient;
 
     @FXML
-    private TableColumn<Order,String> orderInMadeClient;
+    private TableColumn<Order, String> orderInMadeClient;
 
     @FXML
-    private TableColumn<Order,String> closedOrderClient;
+    private TableColumn<Order, String> closedOrderClient;
 
     @FXML
-    private TableColumn<Order,String> createdOrderAddress;
+    private TableColumn<Order, String> createdOrderAddress;
 
     @FXML
-    private TableColumn<Order,String> orderInMadeAddress;
+    private TableColumn<Order, String> orderInMadeAddress;
 
     @FXML
-    private TableColumn<Order,String> closedOrderAddress;
+    private TableColumn<Order, String> closedOrderAddress;
 
     @FXML
-    private TableColumn<Order,String> createdOrderPlace;
+    private TableColumn<Order, String> createdOrderPlace;
 
     @FXML
-    private TableColumn<Order,String> orderInMadePlace;
+    private TableColumn<Order, String> orderInMadePlace;
 
     @FXML
-    private TableColumn<Order,String> closedOrderPlace;
+    private TableColumn<Order, String> closedOrderPlace;
 
     @FXML
-    private TableColumn<Order,Double> createdOrderTotalPrice;
+    private TableColumn<Order, Double> createdOrderTotalPrice;
 
     @FXML
-    private TableColumn<Order,Double> orderInMadeTotalPrice;
+    private TableColumn<Order, Double> orderInMadeTotalPrice;
 
     @FXML
-    private TableColumn<Order,Double> closedOrderTotalPrice;
+    private TableColumn<Order, Double> closedOrderTotalPrice;
 
-    PersonDAOImplementation personDAO=new PersonDAOImplementation();
-    OrderDAOImplementation orderDAO=new OrderDAOImplementation();
+    PersonDAOImplementation personDAO = new PersonDAOImplementation();
+    OrderDAOImplementation orderDAO = new OrderDAOImplementation();
 
     ObservableList<Employee> employeeList = FXCollections.observableArrayList(personDAO.getEmployees());
-    ObservableList<Person> clientList=FXCollections.observableArrayList(personDAO.getClients());
+    ObservableList<Person> clientList = FXCollections.observableArrayList(personDAO.getClients());
 
     public static void showStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainWindowController.class.getResource("/fxml/MainWindow.fxml"));
@@ -170,7 +171,7 @@ public class MainWindowController implements Initializable{
         initializeClosedOrders();
     }
 
-    public void initializeEmployees(){
+    public void initializeEmployees() {
         personDAO = new PersonDAOImplementation();
         employeeId.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("id"));
         employeeName.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
@@ -184,52 +185,52 @@ public class MainWindowController implements Initializable{
         searchEmployees();
     }
 
-    public void initializeClients(){
-        personDAO=new PersonDAOImplementation();
+    public void initializeClients() {
+        personDAO = new PersonDAOImplementation();
         clientId.setCellValueFactory(new PropertyValueFactory<Person, Integer>("id"));
         clientName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        clientSurname.setCellValueFactory(new PropertyValueFactory<Person,String>("surname"));
-        clientTelephone.setCellValueFactory(new PropertyValueFactory<Person,String>("telephone"));
+        clientSurname.setCellValueFactory(new PropertyValueFactory<Person, String>("surname"));
+        clientTelephone.setCellValueFactory(new PropertyValueFactory<Person, String>("telephone"));
         clientPlace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlace().getName()));
         searchClients();
     }
 
-    public void initializeCreatedOrders(){
-        OrderDAOImplementation orderDAOImplementation=new OrderDAOImplementation();
-        createdOrderId.setCellValueFactory(new PropertyValueFactory<Order,Integer>("id"));
-        createdOrderDate.setCellValueFactory(new PropertyValueFactory<Order,LocalDateTime>("dateTime"));
-        createdOrderClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName()+" "+cellData.getValue().getPerson().getSurname()));
-        createdOrderAddress.setCellValueFactory(new PropertyValueFactory<Order,String>("poolMountingAddress"));
+    public void initializeCreatedOrders() {
+        OrderDAOImplementation orderDAOImplementation = new OrderDAOImplementation();
+        createdOrderId.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
+        createdOrderDate.setCellValueFactory(new PropertyValueFactory<Order, LocalDateTime>("dateTime"));
+        createdOrderClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName() + " " + cellData.getValue().getPerson().getSurname()));
+        createdOrderAddress.setCellValueFactory(new PropertyValueFactory<Order, String>("poolMountingAddress"));
         createdOrderPlace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getPlace().getName()));
-        createdOrderTotalPrice.setCellValueFactory(new PropertyValueFactory<Order,Double>("totalPrice"));
+        createdOrderTotalPrice.setCellValueFactory(new PropertyValueFactory<Order, Double>("totalPrice"));
         searchCreatedOrders();
     }
 
-    public void initializeOrdersInMade(){
-        OrderDAOImplementation orderDAOImplementation=new OrderDAOImplementation();
-        orderInMadeId.setCellValueFactory(new PropertyValueFactory<Order,Integer>("id"));
-        orderInMadeDate.setCellValueFactory(new PropertyValueFactory<Order,LocalDateTime>("dateTime"));
-        orderInMadeClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName()+" "+cellData.getValue().getPerson().getSurname()));
-        orderInMadeAddress.setCellValueFactory(new PropertyValueFactory<Order,String>("poolMountingAddress"));
+    public void initializeOrdersInMade() {
+        OrderDAOImplementation orderDAOImplementation = new OrderDAOImplementation();
+        orderInMadeId.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
+        orderInMadeDate.setCellValueFactory(new PropertyValueFactory<Order, LocalDateTime>("dateTime"));
+        orderInMadeClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName() + " " + cellData.getValue().getPerson().getSurname()));
+        orderInMadeAddress.setCellValueFactory(new PropertyValueFactory<Order, String>("poolMountingAddress"));
         orderInMadePlace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getPlace().getName()));
-        orderInMadeTotalPrice.setCellValueFactory(new PropertyValueFactory<Order,Double>("totalPrice"));
+        orderInMadeTotalPrice.setCellValueFactory(new PropertyValueFactory<Order, Double>("totalPrice"));
         searchOrdersInMade();
     }
 
-    public void initializeClosedOrders(){
-        OrderDAOImplementation orderDAOImplementation=new OrderDAOImplementation();
-        closedOrderId.setCellValueFactory(new PropertyValueFactory<Order,Integer>("id"));
-        closedOrderDate.setCellValueFactory(new PropertyValueFactory<Order,LocalDateTime>("dateTime"));
-        closedOrderClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName()+" "+cellData.getValue().getPerson().getSurname()));
-        closedOrderAddress.setCellValueFactory(new PropertyValueFactory<Order,String>("poolMountingAddress"));
+    public void initializeClosedOrders() {
+        OrderDAOImplementation orderDAOImplementation = new OrderDAOImplementation();
+        closedOrderId.setCellValueFactory(new PropertyValueFactory<Order, Integer>("id"));
+        closedOrderDate.setCellValueFactory(new PropertyValueFactory<Order, LocalDateTime>("dateTime"));
+        closedOrderClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName() + " " + cellData.getValue().getPerson().getSurname()));
+        closedOrderAddress.setCellValueFactory(new PropertyValueFactory<Order, String>("poolMountingAddress"));
         closedOrderPlace.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getPlace().getName()));
-        closedOrderTotalPrice.setCellValueFactory(new PropertyValueFactory<Order,Double>("totalPrice"));
+        closedOrderTotalPrice.setCellValueFactory(new PropertyValueFactory<Order, Double>("totalPrice"));
         searchClosedOrders();
     }
 
     public void searchEmployees() {
         employeeTableView.getItems().clear();
-        List<Employee> list=personDAO.getEmployees();
+        List<Employee> list = personDAO.getEmployees();
         try {
             employeeTableView.getItems().clear();
             employeeTableView.setItems(FXCollections.observableArrayList(list));
@@ -240,7 +241,7 @@ public class MainWindowController implements Initializable{
 
     public void searchClients() {
         clientTableView.getItems().clear();
-        List<Person> list=personDAO.getClients();
+        List<Person> list = personDAO.getClients();
         try {
             clientTableView.getItems().clear();
             clientTableView.setItems(FXCollections.observableArrayList(list));
@@ -249,40 +250,40 @@ public class MainWindowController implements Initializable{
         }
     }
 
-    public void searchCreatedOrders(){
-        List<Order> list=orderDAO.getOrders();
-        List<Order> createdOrdersList=list.stream().filter(c -> c.getStatus()==0).collect(Collectors.toList());
+    public void searchCreatedOrders() {
+        List<Order> list = orderDAO.getOrders();
+        List<Order> createdOrdersList = list.stream().filter(c -> c.getStatus() == 0).collect(Collectors.toList());
         createdOrdersTableView.getItems().clear();
         createdOrdersTableView.setItems(FXCollections.observableArrayList(createdOrdersList));
     }
 
-    public void searchOrdersInMade(){
-        List<Order> list=orderDAO.getOrders();
-        List<Order> ordersInMadeList=list.stream().filter(c->c.getStatus()==1).collect(Collectors.toList());
+    public void searchOrdersInMade() {
+        List<Order> list = orderDAO.getOrders();
+        List<Order> ordersInMadeList = list.stream().filter(c -> c.getStatus() == 1).collect(Collectors.toList());
         ordersInMadeTableView.getItems().clear();
         ordersInMadeTableView.setItems(FXCollections.observableArrayList(ordersInMadeList));
     }
 
-    public void searchClosedOrders(){
-        List<Order> list=orderDAO.getOrders();
-        List<Order> closedOrdersList=list.stream().filter(c->c.getStatus()==2).collect(Collectors.toList());
+    public void searchClosedOrders() {
+        List<Order> list = orderDAO.getOrders();
+        List<Order> closedOrdersList = list.stream().filter(c -> c.getStatus() == 2).collect(Collectors.toList());
         closedOrdersTableView.getItems().clear();
         closedOrdersTableView.setItems(FXCollections.observableArrayList(closedOrdersList));
     }
 
     @FXML
     private void addEmployee() throws IOException {
-        AddEmployeeController addEmployeeController =new AddEmployeeController();
+        AddEmployeeController addEmployeeController = new AddEmployeeController();
         addEmployeeController.showStage(this);
     }
 
     @FXML
-    private void deleteEmployee(){
-        ObservableList<Employee> allEmployees,selectedEmployees;
-        allEmployees= employeeTableView.getItems();
-        selectedEmployees= employeeTableView.getSelectionModel().getSelectedItems();
-        PersonDAOImplementation personDAOImplementation=new PersonDAOImplementation();
-        for(Employee employee:selectedEmployees){
+    private void deleteEmployee() {
+        ObservableList<Employee> allEmployees, selectedEmployees;
+        allEmployees = employeeTableView.getItems();
+        selectedEmployees = employeeTableView.getSelectionModel().getSelectedItems();
+        PersonDAOImplementation personDAOImplementation = new PersonDAOImplementation();
+        for (Employee employee : selectedEmployees) {
             allEmployees.remove(employee);
             personDAOImplementation.deleteEmployee(employee);
         }
@@ -291,24 +292,24 @@ public class MainWindowController implements Initializable{
     @FXML
     private void editEmployee() throws IOException {
         ObservableList<Employee> selectedEmployee;
-        selectedEmployee= employeeTableView.getSelectionModel().getSelectedItems();
-        EditEmployeeController editEmployeeController=new EditEmployeeController();
-        editEmployeeController.showStage(selectedEmployee.get(0),this);
+        selectedEmployee = employeeTableView.getSelectionModel().getSelectedItems();
+        EditEmployeeController editEmployeeController = new EditEmployeeController();
+        editEmployeeController.showStage(selectedEmployee.get(0), this);
     }
 
     @FXML
     private void addClient() throws IOException {
-        AddClientController addClientController=new AddClientController();
+        AddClientController addClientController = new AddClientController();
         addClientController.showStage(this);
     }
 
     @FXML
-    private void deleteClient(){
-        ObservableList<Person> selectedClient,allClients;
-        selectedClient=clientTableView.getSelectionModel().getSelectedItems();
-        allClients=clientTableView.getItems();
-        PersonDAOImplementation personDAOImplementation=new PersonDAOImplementation();
-        for(Person person:selectedClient){
+    private void deleteClient() {
+        ObservableList<Person> selectedClient, allClients;
+        selectedClient = clientTableView.getSelectionModel().getSelectedItems();
+        allClients = clientTableView.getItems();
+        PersonDAOImplementation personDAOImplementation = new PersonDAOImplementation();
+        for (Person person : selectedClient) {
             allClients.remove(person);
             personDAOImplementation.deletePerson(person);
         }
@@ -317,14 +318,14 @@ public class MainWindowController implements Initializable{
     @FXML
     private void editClient() throws IOException {
         ObservableList<Person> selectedClient;
-        selectedClient=clientTableView.getSelectionModel().getSelectedItems();
-        EditClientController editClientController=new EditClientController();
-        editClientController.showStage(selectedClient.get(0),this);
+        selectedClient = clientTableView.getSelectionModel().getSelectedItems();
+        EditClientController editClientController = new EditClientController();
+        editClientController.showStage(selectedClient.get(0), this);
     }
 
     @FXML
     private void createOrder() throws IOException {
-        CreateOrderController createOrderController=new CreateOrderController();
+        CreateOrderController createOrderController = new CreateOrderController();
         createOrderController.showStage(this);
     }
 }

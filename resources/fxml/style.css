@@ -54,7 +54,7 @@
 .tab-pane {
 	-fx-background-color: transparent;
 	-fx-tab-min-width: 90px;
-	-fx-tab-max-width: 90px
+	-fx-tab-max-width: 90px;
 	-fx-tab-min-height: 40px;
 	-fx-tab-max-height: 40px;
 }

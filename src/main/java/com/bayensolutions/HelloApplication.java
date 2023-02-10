@@ -1,6 +1,9 @@
 package com.bayensolutions;
 
 import com.bayensolutions.controllers.LoginController;
+import com.bayensolutions.dao.mysql.ItemDAOImplementation;
+import com.bayensolutions.dao.mysql.OrderItemDAOImplementation;
+import com.bayensolutions.model.Order;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,7 +16,9 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-
         launch();
+
+        //OrderItemDAOImplementation orderItemDAOImplementation=new OrderItemDAOImplementation();
+        //orderItemDAOImplementation.getOrderItems(new Order(1,null,null,0,0.00,null));
     }
 }

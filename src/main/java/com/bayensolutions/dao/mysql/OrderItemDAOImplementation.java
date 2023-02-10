@@ -16,6 +16,7 @@ public class OrderItemDAOImplementation implements OrderItemDAO {
     @Override
     public List<OrderItem> getOrderItems(Order order) {
         List<OrderItem> list = new ArrayList<>();
+        List<Item> items=new ArrayList<>();
         Connection connection = null;
         CallableStatement callableStatement = null;
         ResultSet rs;
@@ -27,10 +28,12 @@ public class OrderItemDAOImplementation implements OrderItemDAO {
             callableStatement = connection.prepareCall(callStatement);
             callableStatement.setInt(1,order.getId());
             rs = callableStatement.executeQuery();
+            int counter=0;
 
-            while (rs.next())
-                list.add(new OrderItem(order,new ItemDAOImplementation().getItemById(rs.getInt(1)),rs.getInt(2)));
-            //System.out.println(list.toString());
+            while (rs.next()){
+                items.add(new ItemDAOImplementation().getItemById(rs.getInt(1)));;
+                list.add(new OrderItem(order,items.get(counter++),rs.getInt(2)));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
