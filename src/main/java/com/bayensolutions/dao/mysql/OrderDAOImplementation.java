@@ -1,10 +1,7 @@
 package com.bayensolutions.dao.mysql;
 
 import com.bayensolutions.dao.OrderDAO;
-import com.bayensolutions.model.Material;
-import com.bayensolutions.model.Order;
-import com.bayensolutions.model.Item;
-import com.bayensolutions.model.OrderItem;
+import com.bayensolutions.model.*;
 import com.bayensolutions.util.ConnectionPool;
 
 import java.sql.*;
@@ -26,7 +23,7 @@ public class OrderDAOImplementation implements OrderDAO {
             callableStatement=connection.prepareCall(callStatementItem);
             callableStatement.setDouble(2,order.getTotalPrice());
             callableStatement.setString(3,order.getPoolMountingAddress());
-            callableStatement.setInt(4,order.getPersonId());
+            callableStatement.setInt(4,order.getPerson().getId());
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.executeUpdate();
             result = callableStatement.getInt(1);
@@ -103,8 +100,10 @@ public class OrderDAOImplementation implements OrderDAO {
             rs = callableStatement.executeQuery();
 
             while (rs.next())
-                list.add(new OrderItem(new Order(rs.getInt(1),rs.getInt(2),rs.getTimestamp(8).toLocalDateTime(),rs.getInt(16),rs.getDouble(9),rs.getString(10)),new Item(rs.getInt(11),rs.getString(12),rs.getDouble(13),rs.getString(14)),rs.getInt(15)));
+                list.add(new OrderItem(new Order(rs.getInt(1),new Person(rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),new Place(rs.getString(6),rs.getString(7))),rs.getTimestamp(8).toLocalDateTime(),rs.getInt(16),rs.getDouble(9),rs.getString(10)),new Item(rs.getInt(11),rs.getString(12),rs.getDouble(13),rs.getString(14)),rs.getInt(15)));
+            System.out.println("---");
             System.out.println(list.toString());
+            System.out.println("---");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -186,8 +185,7 @@ public class OrderDAOImplementation implements OrderDAO {
             rs = callableStatement.executeQuery();
 
             while (rs.next())
-                list.add(new Order(rs.getInt(1),rs.getInt(6),rs.getTimestamp(2).toLocalDateTime(),rs.getInt(3),rs.getDouble(4),rs.getString(5)));
-            System.out.println(list.toString());
+                list.add(new Order(rs.getInt(1),new Person(rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9),new Place(rs.getString(10),rs.getString(11))),rs.getTimestamp(2).toLocalDateTime(),rs.getInt(3),rs.getDouble(4),rs.getString(5)));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

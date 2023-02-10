@@ -6,19 +6,15 @@ import java.util.List;
 public class Order {
 
     private Integer id;
-    private Integer personId;
+    private Person person;
     private LocalDateTime dateTime;
     private Integer status;
     private Double totalPrice;
     private String poolMountingAddress;
 
-    public Order(){
-        super();
-    }
-
-    public Order(Integer id, Integer personId, LocalDateTime dateTime, Integer status, Double totalPrice, String poolMountingAddress) {
+    public Order(Integer id, Person person, LocalDateTime dateTime, Integer status, Double totalPrice, String poolMountingAddress) {
         this.id = id;
-        this.personId = personId;
+        this.person = person;
         this.dateTime = dateTime;
         this.status = status;
         this.totalPrice = totalPrice;
@@ -33,12 +29,12 @@ public class Order {
         this.id = id;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public LocalDateTime getDateTime() {
@@ -77,7 +73,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", personId='" + personId + '\'' +
+                ", person=" + person +
                 ", dateTime=" + dateTime +
                 ", status=" + status +
                 ", totalPrice=" + totalPrice +

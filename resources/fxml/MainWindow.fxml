@@ -11,7 +11,7 @@
 
 <TabPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.MainWindowController">
     <tabs>
-        <Tab fx:id="person" style="-fx-background-color: #abcdef; -fx-border-color: #000000;" text="Osobe">
+        <Tab fx:id="person" style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border: solid; -fx-border-color: silver;" text="Osobe">
             <content>
                 <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -19,7 +19,7 @@
                             <content>
                                 <BorderPane>
                                     <bottom>
-                                        <TableView fx:id="tableView" prefHeight="304.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                        <TableView fx:id="employeeTableView" prefHeight="298.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                                             <columns>
                                                 <TableColumn fx:id="employeeId" prefWidth="25.0" text="Id" />
                                                 <TableColumn fx:id="employeeName" prefWidth="75.0" text="Ime" />
@@ -44,17 +44,137 @@
                                 </BorderPane>
                             </content>
                         </Tab>
-                        <Tab text="Klijenti">
+                        <Tab fx:id="client" text="Klijenti">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane prefHeight="344.0" prefWidth="600.0">
+                                 <top>
+                                    <HBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#addClient" text="Dodaj" />
+                                          <Button mnemonicParsing="false" onAction="#deleteClient" text="Obriši" />
+                                          <Button mnemonicParsing="false" onAction="#editClient" text="Izmijeni" />
+                                       </children>
+                                    </HBox>
+                                 </top>
+                                 <bottom>
+                                    <TableView fx:id="clientTableView" prefHeight="300.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="clientId" prefWidth="25.0" text="Id" />
+                                        <TableColumn fx:id="clientName" prefWidth="75.0" text="Ime" />
+                                          <TableColumn fx:id="clientSurname" prefWidth="75.0" text="Prezime" />
+                                          <TableColumn fx:id="clientTelephone" prefWidth="75.0" text="Telefon" />
+                                          <TableColumn fx:id="clientPlace" prefWidth="75.0" text="Mjesto" />
+                                      </columns>
+                                    </TableView>
+                                 </bottom>
+                              </BorderPane>
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
                 </TabPane>
             </content>
         </Tab>
-        <Tab text="Narudžbe" />
-        <Tab text="Materijali" />
-        <Tab text="Artikli" />
+        <Tab fx:id="order" style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Narudžbe">
+         <content>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="created" text="Kreirani predračuni">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane layoutX="1.0" layoutY="2.0" prefHeight="340.0" prefWidth="600.0">
+                                 <top>
+                                    <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#createOrder" text="Dodaj" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                       </children>
+                                    </HBox>
+                                 </top>
+                                 <bottom>
+                                    <TableView fx:id="createdOrdersTableView" prefHeight="296.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="createdOrderId" prefWidth="75.0" text="Id" />
+                                        <TableColumn fx:id="createdOrderDate" prefWidth="75.0" text="Datum" />
+                                          <TableColumn fx:id="createdOrderClient" prefWidth="75.0" text="Klijent" />
+                                          <TableColumn fx:id="createdOrderAddress" prefWidth="75.0" text="Adresa" />
+                                          <TableColumn fx:id="createdOrderPlace" prefWidth="75.0" text="Mjesto" />
+                                          <TableColumn fx:id="createdOrderTotalPrice" prefWidth="75.0" text="Cijena" />
+                                      </columns>
+                                    </TableView>
+                                 </bottom>
+                              </BorderPane>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="inMade" text="U izradi">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane layoutX="-1.0" layoutY="-1.0" prefHeight="341.0" prefWidth="600.0">
+                                 <top>
+                                    <HBox prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                       </children>
+                                    </HBox>
+                                 </top>
+                                 <bottom>
+                                    <TableView fx:id="ordersInMadeTableView" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="orderInMadeId" prefWidth="75.0" text="Id" />
+                                        <TableColumn fx:id="orderInMadeDate" prefWidth="75.0" text="Datum" />
+                                          <TableColumn fx:id="orderInMadeClient" prefWidth="75.0" text="Klijent" />
+                                          <TableColumn fx:id="orderInMadeAddress" prefWidth="75.0" text="Adresa" />
+                                          <TableColumn fx:id="orderInMadePlace" prefWidth="75.0" text="Mjesto" />
+                                          <TableColumn fx:id="orderInMadeTotalPrice" prefWidth="75.0" text="Cijena" />
+                                      </columns>
+                                    </TableView>
+                                 </bottom>
+                              </BorderPane>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="Closed" text="Završeno">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <BorderPane prefHeight="340.0" prefWidth="600.0">
+                                 <top>
+                                    <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button mnemonicParsing="false" text="Button" />
+                                       </children>
+                                    </HBox>
+                                 </top>
+                                 <bottom>
+                                    <TableView fx:id="closedOrdersTableView" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="closedOrderId" prefWidth="75.0" text="Id" />
+                                        <TableColumn fx:id="closedOrderDate" prefWidth="75.0" text="Datum" />
+                                          <TableColumn fx:id="closedOrderClient" prefWidth="75.0" text="Klijent" />
+                                          <TableColumn fx:id="closedOrderAddress" prefWidth="75.0" text="Adresa" />
+                                          <TableColumn fx:id="closedOrderPlace" prefWidth="75.0" text="Mjesto" />
+                                          <TableColumn fx:id="closedOrderTotalPrice" prefWidth="75.0" text="Cijena" />
+                                      </columns>
+                                    </TableView>
+                                 </bottom>
+                              </BorderPane>
+                           </children></AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </content></Tab>
+        <Tab style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Materijali" />
+        <Tab style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Artikli" />
     </tabs>
 </TabPane>

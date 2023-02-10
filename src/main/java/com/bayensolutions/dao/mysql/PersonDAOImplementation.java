@@ -221,5 +221,30 @@ public class PersonDAOImplementation implements PersonDAO {
         return list;
     }
 
+    @Override
+    public List<Person> getClients(){
+        List<Person> list = new ArrayList<>();
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs;
+
+        String callStatement = "{call dohvatanjeSvihKlijenata()}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            rs = callableStatement.executeQuery();
+
+            while (rs.next())
+                list.add(new Person(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),new Place(rs.getString(5),rs.getString(6))));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return list;
+    }
+
 
 }

@@ -8,7 +8,5 @@ public interface ItemDAO {
 
     boolean changeItemInformation(Item oldItem, Item newItem);
 
-    List<Item> getItems();
-
-    boolean deleteItem(Item item);
+    Item getItemById(Integer id);
 }

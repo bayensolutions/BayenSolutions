@@ -22,4 +22,6 @@ public interface PersonDAO {
 
     boolean updateEmployee(Employee employee);
 
+    List<Person> getClients();
+
 }

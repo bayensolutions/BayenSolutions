@@ -2,12 +2,8 @@ package com.bayensolutions.dao.mysql;
 
 import com.bayensolutions.dao.ItemDAO;
 import com.bayensolutions.model.Item;
-import com.bayensolutions.model.Order;
-import com.bayensolutions.model.OrderItem;
 import com.bayensolutions.util.ConnectionPool;
-
 import java.sql.*;
-import java.util.List;
 
 public class ItemDAOImplementation implements ItemDAO {
 
@@ -62,16 +58,28 @@ public class ItemDAOImplementation implements ItemDAO {
         return false;
     }
 
-    /*
-    * Naredne dvije metode nisam implementirao jer sam skontao da imam problematičan atribut u modelu
-    * */
     @Override
-    public List<Item> getItems() {
-        return null;
-    }
+    public Item getItemById(Integer id){
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        boolean result = false;
+        ResultSet rs;
+        Item item=null;
+        String callStatement = "{call dohvatanjeArtikla(?)}";
 
-    @Override
-    public boolean deleteItem(Item item) {
-        return false;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            callableStatement.setInt(1, id);
+            rs=callableStatement.executeQuery();
+            item=new Item(id,rs.getString(2),rs.getDouble(3),rs.getString(4));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return item;
     }
 }

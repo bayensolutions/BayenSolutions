@@ -1,8 +1,9 @@
 package com.bayensolutions.dao.mysql;
 
-import com.bayensolutions.dao.EmployeeRoleDAO;
-import com.bayensolutions.model.EmployeeRole;
+import com.bayensolutions.dao.PoolDAO;
+import com.bayensolutions.model.Person;
 import com.bayensolutions.model.Place;
+import com.bayensolutions.model.Pool;
 import com.bayensolutions.util.ConnectionPool;
 
 import java.sql.CallableStatement;
@@ -12,16 +13,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRoleDAOImplementation implements EmployeeRoleDAO {
-
-    @Override
-    public List<EmployeeRole> getEmloyeeRoles() {
-        List<EmployeeRole> list = new ArrayList<>();
+public class PoolDAOImplementation implements PoolDAO {
+    public List<Pool> getPools(){
+        List<Pool> list = new ArrayList<>();
         Connection connection = null;
         CallableStatement callableStatement = null;
         ResultSet rs;
 
-        String callStatement = "{call dohvatanjeSvihUlogaZaposlenih()}";
+        String callStatement = "{call dohvatanjeSvihBazena()}";
 
         try {
             connection = ConnectionPool.getInstance().checkOut();
@@ -29,7 +28,8 @@ public class EmployeeRoleDAOImplementation implements EmployeeRoleDAO {
             rs = callableStatement.executeQuery();
 
             while (rs.next())
-                list.add(new EmployeeRole(rs.getInt(1),rs.getString(2)));
+                list.add(new Pool(rs.getInt(1),rs.getString(2),rs.getDouble(5),rs.getString(6),rs.getDouble(3),rs.getDouble(4)));
+            //System.out.println(list.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -29,7 +29,6 @@ public class PlaceDAOImplementation implements PlaceDAO {
 
             while (rs.next())
                 list.add(new Place(rs.getString(1),rs.getString(2)));
-            System.out.println(list.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

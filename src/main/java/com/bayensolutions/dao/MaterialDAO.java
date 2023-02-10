@@ -14,5 +14,5 @@ public interface MaterialDAO {
 
     List<Material> getMaterialItems(String name);
 
-   boolean updateMaterial(Material material);
+    boolean updateMaterial(Material material);
 }

@@ -54,6 +54,22 @@ public class Pool {
         this.description = description;
     }
 
+    public Double getDiameter() {
+        return diameter;
+    }
+
+    public void setDiameter(Double diameter) {
+        this.diameter = diameter;
+    }
+
+    public Double getDepth() {
+        return depth;
+    }
+
+    public void setDepth(Double depth) {
+        this.depth = depth;
+    }
+
     @Override
     public String toString() {
         return "Pool{" +

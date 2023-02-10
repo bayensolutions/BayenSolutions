@@ -5,6 +5,7 @@ import com.bayensolutions.dao.mysql.PersonDAOImplementation;
 import com.bayensolutions.dao.mysql.PlaceDAOImplementation;
 import com.bayensolutions.model.Employee;
 import com.bayensolutions.model.EmployeeRole;
+import com.bayensolutions.model.Person;
 import com.bayensolutions.model.Place;
 import com.bayensolutions.util.JavaFXUtil;
 import com.bayensolutions.util.Util;
@@ -27,8 +28,9 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AddEmployeeController {
+public class EditEmployeeController {
 
+    private int id;
     MainWindowController mainWindowController;
 
     @FXML
@@ -83,7 +85,7 @@ public class AddEmployeeController {
     }
 
     @FXML
-    public void registerEmployee(ActionEvent event) {
+    void registerEmployee(ActionEvent event) {
         String name=nameTF.getText();
         String surname=surnameTF.getText();
         String telephone=telephoneTF.getText();
@@ -93,33 +95,47 @@ public class AddEmployeeController {
         Double salary=Double.parseDouble(salaryTF.getText());
         String uniqueIdentifier=uniqueIdentifierTF.getText();
         EmployeeRole role=roleCB.getValue();
+
         if(name.equals("") || surname.equals("") || telephone.equals("") || place.equals("") || username.equals("") || password.equals("") || salary.equals("") || uniqueIdentifier.equals("") || role.equals("")){
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
             return;
         }
-        boolean success=new PersonDAOImplementation().addEmployee(new Employee(999,name,surname,telephone,new Place(place.getZipCode(),place.getName()),username,password,salary,new EmployeeRole(role.getId(),role.getRole()),uniqueIdentifier));
+
+        boolean success=new PersonDAOImplementation().updateEmployee(new Employee(id,name,surname,telephone,new Place(place.getZipCode(),place.getName()),username,password,salary,new EmployeeRole(role.getId(),role.getRole()),uniqueIdentifier));
         JavaFXUtil.showInfoAlert(success,Util.INFO,Util.ADD_SUCCESS,Util.ADD_FAILURE);
+
+        success=new PersonDAOImplementation().updatePerson(new Person(id,name,surname,telephone,new Place(place.getZipCode(),place.getName())));
+        //JavaFXUtil.showInfoAlert(success,Util.INFO,Util.ADD_SUCCESS,Util.ADD_FAILURE);
         mainWindowController.searchEmployees();
         borderPane.getScene().getWindow().hide();
-
     }
 
-    public void showStage(MainWindowController mainWindowController) throws IOException {
-        FXMLLoader loader = new FXMLLoader(AddEmployeeController.class.getResource("/fxml/AddEmployee.fxml"));
+    public void showStage(Employee employee, MainWindowController mainWindowController) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(AddEmployeeController.class.getResource("/fxml/EditEmployee.fxml"));
         Scene scene = new Scene(loader.load(), 600, 400, Color.TRANSPARENT);
         Stage stage = new Stage();
-        stage.setTitle("Bayen solutions - dodavanje zaposlenog");
+        stage.setTitle("Bayen solutions - izmjena zaposlenog");
         String path = "resources/photos/icon.png";
         Image applicationIcon = new Image(new File(path).toURI().toString());
         stage.getIcons().add(applicationIcon);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        ((AddEmployeeController) loader.getController()).addParameters(mainWindowController);
+        ((EditEmployeeController) loader.getController()).addParameters(employee,mainWindowController);
     }
 
-    public void addParameters(MainWindowController mainWindowController){
+    public void addParameters(Employee employee, MainWindowController mainWindowController){
+        id=employee.getId();
+        nameTF.setText(employee.getName());
+        surnameTF.setText(employee.getSurname());
+        telephoneTF.setText(employee.getTelephone());
+        placeCB.setValue(employee.getPlace());
+        usernameTF.setText(employee.getNickname());
+        passwordTF.setText(employee.getPasswordHash());
+        salaryTF.setText(employee.getSalary().toString());
+        uniqueIdentifierTF.setText(employee.getUniqueIdentificationNumber());
+        roleCB.setValue(employee.getEmployeeRole());
         this.mainWindowController=mainWindowController;
     }
-
 }

@@ -1,25 +1,15 @@
 package com.bayensolutions.model;
 
-public class Equipment {
-
-    private Integer id;
+public class Equipment extends Item{
     private Integer warrantyDuration;
-    private Integer equipmentProducerId;
-    private Integer equipmentTypeId;
+    private EquipmentProducer equipmentProducer;
+    private EquipmentType equipmentType;
 
-    public Equipment(Integer id, Integer warrantyDuration, Integer equipmentProducerId, Integer equipmentTypeId) {
-        this.id = id;
-        this.warrantyDuration = warrantyDuration;
-        this.equipmentProducerId = equipmentProducerId;
-        this.equipmentTypeId = equipmentTypeId;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Equipment(Integer id, String name, Double price, String description, Integer warrantyDuration, EquipmentProducer equipmentProducer, EquipmentType equipmentType) {
+        super(id, name, price, description);
+        this.warrantyDuration=warrantyDuration;
+        this.equipmentProducer=equipmentProducer;
+        this.equipmentType=equipmentType;
     }
 
     public Integer getWarrantyDuration() {
@@ -30,29 +20,28 @@ public class Equipment {
         this.warrantyDuration = warrantyDuration;
     }
 
-    public Integer getEquipmentProducerId() {
-        return equipmentProducerId;
+    public EquipmentProducer getEquipmentProducer() {
+        return equipmentProducer;
     }
 
-    public void setEquipmentProducerId(Integer equipmentProducerId) {
-        this.equipmentProducerId = equipmentProducerId;
+    public void setEquipmentProducer(EquipmentProducer equipmentProducer) {
+        this.equipmentProducer = equipmentProducer;
     }
 
-    public Integer getEquipmentTypeId() {
-        return equipmentTypeId;
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
     }
 
-    public void setEquipmentTypeId(Integer equipmentTypeId) {
-        this.equipmentTypeId = equipmentTypeId;
+    public void setEquipmentType(EquipmentType equipmentType) {
+        this.equipmentType = equipmentType;
     }
 
     @Override
     public String toString() {
         return "Equipment{" +
-                "id=" + id +
-                ", warrantyDuration=" + warrantyDuration +
-                ", equipmentProducerId=" + equipmentProducerId +
-                ", equipmentTypeId=" + equipmentTypeId +
-                '}';
+                "warrantyDuration=" + warrantyDuration +
+                ", equipmentProducer=" + equipmentProducer +
+                ", equipmentType=" + equipmentType +
+                "} " + super.toString();
     }
 }
