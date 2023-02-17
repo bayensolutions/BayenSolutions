@@ -80,7 +80,7 @@ public class CreateOrderController {
         if (index > 0) success = true;
         JavaFXUtil.showInfoAlert(success, Util.INFO, Util.ADD_SUCCESS, Util.ADD_FAILURE);
         mainWindowController.searchCreatedOrders();
-        //borderPane.getScene().getWindow().hide();
+        borderPane.getScene().getWindow().hide();
         AddItemController addItemController = new AddItemController();
         addItemController.setOrder(new Order(index, client, currentDateTime, 0, 0.00, address));
         addItemController.showStage(mainWindowController);

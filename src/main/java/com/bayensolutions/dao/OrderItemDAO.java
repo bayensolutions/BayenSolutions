@@ -9,4 +9,8 @@ public interface OrderItemDAO {
     List<OrderItem> getOrderItems(Order order);
 
     boolean addOrderItem(Order order, Item item, Integer quantity);
+
+    boolean deleteOrderItem(Order order, Item item);
+
+    boolean changeOrderItemQuantity(Order order, Item item, Integer quantity);
 }

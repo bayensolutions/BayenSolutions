@@ -25,25 +25,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddItemController implements Initializable {
-    private MainWindowController mainWindowController;
-    private static Order order;
-    private static Double totalPrice=0.0;
-
-    public MainWindowController getMainWindowController() {
-        return mainWindowController;
-    }
-
-    public void setMainWindowController(MainWindowController mainWindowController) {
-        this.mainWindowController = mainWindowController;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
 
     @FXML
     private BorderPane borderPane;
@@ -162,14 +143,45 @@ public class AddItemController implements Initializable {
     @FXML
     private TableColumn<Equipment,Double> equipmentPrice;
 
-    PoolDAOImplementation poolDAOImplementation=new PoolDAOImplementation();
-    DeckDAOImplementation deckDAOImplementation=new DeckDAOImplementation();
-    RevetmentDAOImplementation revetmentDAOImplementation=new RevetmentDAOImplementation();
-    EquipmentDAOImplementation equipmentDAOImplementation=new EquipmentDAOImplementation();
-    OrderItemDAOImplementation orderItemDAOImplementation=new OrderItemDAOImplementation();
+    PoolDAOImplementation poolDAOImplementation;
+    DeckDAOImplementation deckDAOImplementation;
+    RevetmentDAOImplementation revetmentDAOImplementation;
+    EquipmentDAOImplementation equipmentDAOImplementation;
+    OrderItemDAOImplementation orderItemDAOImplementation;
+    InsertQuantityController insertQuantityController;
+    MainWindowController mainWindowController;
+
+    static Order order;
+    static Double totalPrice=0.0;
+
+    public MainWindowController getMainWindowController() {
+        return mainWindowController;
+    }
+
+    public void setMainWindowController(MainWindowController mainWindowController) {
+        this.mainWindowController = mainWindowController;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setTotalPrice(Double price){totalPrice=price;}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mainWindowController=new MainWindowController();
+        insertQuantityController=new InsertQuantityController();
+        orderItemDAOImplementation=new OrderItemDAOImplementation();
+        equipmentDAOImplementation=new EquipmentDAOImplementation();
+        revetmentDAOImplementation=new RevetmentDAOImplementation();
+        deckDAOImplementation=new DeckDAOImplementation();
+        poolDAOImplementation=new PoolDAOImplementation();
+
         initializePools();
         initializeDecks();
         initializeRevetments();
@@ -226,7 +238,6 @@ public class AddItemController implements Initializable {
         orderItemDAOImplementation=new OrderItemDAOImplementation();
         itemName.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getItem().getName()));
         itemPrice.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getItem().getPrice().toString()));
-        //itemPrice.setCellValueFactory(cellData->new SimpleDoubleProperty(cellData.getValue().getItem().getPrice()).doubleValue());
         itemQuantity.setCellValueFactory(new PropertyValueFactory<OrderItem,Integer>("quantity"));
         searchItems();
     }
@@ -267,7 +278,7 @@ public class AddItemController implements Initializable {
 
     public void showStage(MainWindowController mainWindowController) throws IOException {
         FXMLLoader loader = new FXMLLoader(AddItemController.class.getResource("/fxml/AddItems.fxml"));
-        Scene scene = new Scene(loader.load(), 800, 600, Color.TRANSPARENT);
+        Scene scene = new Scene(loader.load(), 800, 700, Color.TRANSPARENT);
         Stage stage = new Stage();
         stage.setTitle("Bayen solutions - dodavanje artikala");
         String path = "resources/photos/icon.png";
@@ -287,30 +298,78 @@ public class AddItemController implements Initializable {
     private void addPool() throws IOException {
         ObservableList<Pool> selectedPool;
         selectedPool= poolTableView.getSelectionModel().getSelectedItems();
-        InsertQuantityController insertQuantityController=new InsertQuantityController();
-        if(InsertQuantityController.setItem(new Item(selectedPool.get(0).getId(),selectedPool.get(0).getName(),selectedPool.get(0).getPrice(),selectedPool.get(0).getDescription())))
+        Item item=new Item(selectedPool.get(0).getId(),selectedPool.get(0).getName(),selectedPool.get(0).getPrice(),selectedPool.get(0).getDescription());
+        InsertQuantityController.setItem(item);
+        if(InsertQuantityController.addItemToSelectedItems(item))
             insertQuantityController.showStage(this);
     }
 
     @FXML
-    private void addDeck(){
-        System.out.println("DODAJ PLATFORMU");
+    private void addDeck() throws IOException {
+        ObservableList<Deck> selectedDeck;
+        selectedDeck=deckTableView.getSelectionModel().getSelectedItems();
+        Item item=new Item(selectedDeck.get(0).getId(),selectedDeck.get(0).getName(),selectedDeck.get(0).getPrice(),selectedDeck.get(0).getDescription());
+        InsertQuantityController.setItem(item);
+        if(InsertQuantityController.addItemToSelectedItems(item))
+            insertQuantityController.showStage(this);
     }
 
     @FXML
-    private void addRevetment(){
-        System.out.println("DODAJ OBLOGU");
+    private void addRevetment() throws IOException {
+        ObservableList<Revetment> selectedRevetment;
+        selectedRevetment=revetmentTableView.getSelectionModel().getSelectedItems();
+        Item item=new Item(selectedRevetment.get(0).getId(),selectedRevetment.get(0).getName(),selectedRevetment.get(0).getPrice(),selectedRevetment.get(0).getDescription());
+        InsertQuantityController.setItem(item);
+        if(InsertQuantityController.addItemToSelectedItems(item))
+            insertQuantityController.showStage(this);
     }
 
     @FXML
-    private void addEquipment(){
-        System.out.println("DODAJ OPREMU");
+    private void addEquipment() throws IOException {
+        ObservableList<Equipment> selectedEquipment;
+        selectedEquipment=equipmentTableView.getSelectionModel().getSelectedItems();
+        Item item=new Item(selectedEquipment.get(0).getId(),selectedEquipment.get(0).getName(),selectedEquipment.get(0).getPrice(),selectedEquipment.get(0).getDescription());
+        InsertQuantityController.setItem(item);
+        if(InsertQuantityController.addItemToSelectedItems(item))
+            insertQuantityController.showStage(this);
+    }
+
+    @FXML
+    private void editSelectedItem() throws IOException {
+        ObservableList<OrderItem> selectedItems;
+        selectedItems=orderItemTableView.getSelectionModel().getSelectedItems();
+        OrderItem selectedOrderItem=selectedItems.get(0);
+        EditQuantityController editQuantityController=new EditQuantityController();
+        editQuantityController.setItem(selectedOrderItem.getItem());
+        editQuantityController.showStage(this,selectedOrderItem);
+    }
+
+    @FXML
+    private void deleteSelectedItem(){
+        ObservableList<OrderItem> selectedItems, allItems;
+        selectedItems=orderItemTableView.getSelectionModel().getSelectedItems();
+        allItems=orderItemTableView.getItems();
+
+        if(orderItemDAOImplementation.deleteOrderItem(selectedItems.get(0).getOrder(),selectedItems.get(0).getItem())){
+            totalPrice-=selectedItems.get(0).getQuantity()*selectedItems.get(0).getItem().getPrice();
+            initializeTotalPrice();
+            InsertQuantityController.removeItemFromSelectedItems(selectedItems.get(0).getItem());
+            allItems.remove(selectedItems.get(0));
+            searchItems();
+        }
     }
 
     public void registerItem(Item item, Integer quantity){
         orderItemDAOImplementation.addOrderItem(order,item,quantity);
         searchItems();
         totalPrice+=quantity*item.getPrice();
+        initializeTotalPrice();
+    }
+
+    public void changeItemQuantity(Item item, Integer newQuantity, Integer oldQuantity){
+        orderItemDAOImplementation.changeOrderItemQuantity(order,item,newQuantity);
+        searchItems();
+        totalPrice+=(newQuantity-oldQuantity)*item.getPrice();
         initializeTotalPrice();
     }
 

@@ -23,4 +23,6 @@ public interface OrderDAO {
     List<Order> getOrders();
 
     boolean deleteOrder(Order order);
+
+    boolean editOrderInfo(Order newOrder);
 }

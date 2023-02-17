@@ -1,6 +1,7 @@
 package com.bayensolutions.controllers;
 
 import com.bayensolutions.model.Item;
+import com.bayensolutions.model.OrderItem;
 import com.bayensolutions.util.JavaFXUtil;
 import com.bayensolutions.util.Util;
 import javafx.beans.value.ChangeListener;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class InsertQuantityController implements Initializable {
+public class EditQuantityController implements Initializable {
     private static Item item;
 
     public static Item getItem() {
@@ -32,7 +33,7 @@ public class InsertQuantityController implements Initializable {
     }
 
     public static void setItem(Item item) {
-        InsertQuantityController.item = item;
+        EditQuantityController.item = item;
     }
 
     public static boolean addItemToSelectedItems(Item item){
@@ -58,6 +59,8 @@ public class InsertQuantityController implements Initializable {
 
     private AddItemController addItemController;
 
+    private Integer oldQuantity;
+
     @FXML
     private BorderPane borderPane;
 
@@ -74,7 +77,7 @@ public class InsertQuantityController implements Initializable {
     private Label label;
 
     @FXML
-    private Button addItemButton;
+    private Button changeItemQuantityButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,32 +90,36 @@ public class InsertQuantityController implements Initializable {
             }
         });
     }
-    public void showStage(AddItemController addItemController) throws IOException {
-        FXMLLoader loader = new FXMLLoader(InsertQuantityController.class.getResource("/fxml/InsertQuantity.fxml"));
+
+    public void showStage(AddItemController addItemController, OrderItem orderItem) throws IOException {
+        FXMLLoader loader = new FXMLLoader(EditQuantityController.class.getResource("/fxml/EditQuantity.fxml"));
         Scene scene = new Scene(loader.load(), 440, 300, Color.TRANSPARENT);
         Stage stage = new Stage();
-        stage.setTitle("Bayen solutions - dodavanje količine");
+        stage.setTitle("Bayen solutions - izmjena količine");
         String path = "resources/photos/icon.png";
         Image applicationIcon = new Image(new File(path).toURI().toString());
         stage.getIcons().add(applicationIcon);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        ((InsertQuantityController) loader.getController()).setAddItemController(addItemController);
+        ((EditQuantityController) loader.getController()).setAddItemController(addItemController,orderItem);
     }
 
-    public void setAddItemController(AddItemController addItemController){
+    public void setAddItemController(AddItemController addItemController, OrderItem orderItem){
+        label.setText(orderItem.getQuantity().toString());
+        slider.setValue(orderItem.getQuantity());
+        oldQuantity=orderItem.getQuantity();
         this.addItemController=addItemController;
     }
 
     @FXML
-    public void addItem(){
+    public void changeItemQuantity(){
         String quantityString=label.getText();
         if(quantityString.equals("")){
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
             return;
         }
-        addItemController.registerItem(item,Integer.parseInt(quantityString));
+        addItemController.changeItemQuantity(item,Integer.parseInt(quantityString),oldQuantity);
         borderPane.getScene().getWindow().hide();
     }
 

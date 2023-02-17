@@ -89,9 +89,10 @@
                                  <top>
                                     <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#createOrder" text="Dodaj" />
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button fx:id="createOrderButton" mnemonicParsing="false" onAction="#createOrder" text="Dodaj" />
+                                          <Button fx:id="deleteCreatedOrderButton" mnemonicParsing="false" onAction="#deleteCreatedOrder" text="Obriši" />
+                                          <Button fx:id="changeStatusButton" mnemonicParsing="false" onAction="#changeCreatedOrderStatus" text="Potvrdi" />
+                                          <Button fx:id="editCreatedOrderButton" mnemonicParsing="false" onAction="#editCreatedOrder" text="Izmijeni" />
                                        </children>
                                     </HBox>
                                  </top>
@@ -119,9 +120,9 @@
                                  <top>
                                     <HBox prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button fx:id="deleteOrderInMadeButton" mnemonicParsing="false" onAction="#deleteOrderInMade" text="Obriši" />
+                                          <Button fx:id="moveToClosedOrdersButton" mnemonicParsing="false" onAction="#changeOrderInMadeStatus" text="Završi" />
+                                          <Button fx:id="editOrderInMadeButton" mnemonicParsing="false" onAction="#editOrderInMade" text="Izmijeni" />
                                        </children>
                                     </HBox>
                                  </top>
@@ -149,9 +150,7 @@
                                  <top>
                                     <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button fx:id="deleteClosedOrderButton" mnemonicParsing="false" onAction="#deleteClosedOrder" text="Obriši" />
                                        </children>
                                     </HBox>
                                  </top>

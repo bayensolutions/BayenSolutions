@@ -65,5 +65,42 @@ public class OrderItemDAOImplementation implements OrderItemDAO {
         return result;
     }
 
+    @Override
+    public boolean deleteOrderItem(Order order,Item item){
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        String callStatementItem = "{call brisanjeStavke(?,?)}";
+        boolean result=false;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement=connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1,order.getId());
+            callableStatement.setInt(2,item.getId());
+            result=callableStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean changeOrderItemQuantity(Order order, Item item, Integer quantity) {
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        String callStatementItem = "{call promjenaKoličineStavke(?,?,?)}";
+        boolean result=false;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement=connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1,order.getId());
+            callableStatement.setInt(2,item.getId());
+            callableStatement.setInt(3,quantity);
+            result=callableStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

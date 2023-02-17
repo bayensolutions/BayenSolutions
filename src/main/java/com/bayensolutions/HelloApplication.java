@@ -17,8 +17,5 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-
-        //OrderItemDAOImplementation orderItemDAOImplementation=new OrderItemDAOImplementation();
-        //orderItemDAOImplementation.getOrderItems(new Order(1,null,null,0,0.00,null));
     }
 }

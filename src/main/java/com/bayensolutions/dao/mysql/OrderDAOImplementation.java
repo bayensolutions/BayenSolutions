@@ -3,6 +3,9 @@ package com.bayensolutions.dao.mysql;
 import com.bayensolutions.dao.OrderDAO;
 import com.bayensolutions.model.*;
 import com.bayensolutions.util.ConnectionPool;
+import com.bayensolutions.util.DBUtil;
+import com.bayensolutions.util.JavaFXUtil;
+import com.bayensolutions.util.Util;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -213,7 +216,31 @@ public class OrderDAOImplementation implements OrderDAO {
             e.printStackTrace();
         } finally {
             ConnectionPool.getInstance().checkIn(connection);
-            //DBUtil.close(callableStatement);
+            DBUtil.close(callableStatement);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean editOrderInfo(Order newOrder){
+        boolean result = false;
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        String callStatementItem = "{call izmjenaNarudžbe(?,?,?)}";
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1, newOrder.getId());
+            callableStatement.setString(2,newOrder.getPoolMountingAddress());
+            callableStatement.setInt(3,newOrder.getPerson().getId());
+            result = callableStatement.executeUpdate() == 1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            DBUtil.close(callableStatement);
         }
         return result;
     }
