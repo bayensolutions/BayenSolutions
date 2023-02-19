@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RevetmentDAO {
     List<Revetment> getRevetments();
+
+    boolean createRevetment(Revetment revetment);
 }

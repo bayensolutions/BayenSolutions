@@ -11,13 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.bayensolutions.controllers.LoginController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.LoginController">
     <right>
         <ImageView fitHeight="400.0" fitWidth="300.0" pickOnBounds="true" BorderPane.alignment="CENTER">
             <image>
-                <Image url="@../photos/IMG_20211122_003555_758.jpg"/>
+                <Image url="@../photos/IMG_20211122_003555_758.jpg" />
             </image>
         </ImageView>
     </right>
@@ -26,27 +24,23 @@
             <children>
                 <Label text="Prijava">
                     <font>
-                        <Font name="System Bold" size="18.0"/>
+                        <Font name="System Bold" size="18.0" />
                     </font>
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="usernameTF" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                           minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Korisničko ime">
+                <TextField fx:id="usernameTF" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Korisničko ime">
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </TextField>
-                <PasswordField fx:id="passwordPF" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                               minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Lozinka">
+                <PasswordField fx:id="passwordPF" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Lozinka">
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </PasswordField>
-                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                        mnemonicParsing="false" onAction="#logIn" prefHeight="30.0" prefWidth="200.0"
-                        style="-fx-background-color: #06CCEF;" text="Prijava"/>
+                <Button defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#logIn" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #06CCEF;" text="Prijava" />
             </children>
         </VBox>
     </left>

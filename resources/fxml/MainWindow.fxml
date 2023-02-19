@@ -1,179 +1,812 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<TabPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.MainWindowController">
+<TabPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+         prefHeight="600.0" prefWidth="800.0" stylesheets="@tabpane-style.css" tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.bayensolutions.controllers.MainWindowController">
     <tabs>
-        <Tab fx:id="person" style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border: solid; -fx-border-color: silver;" text="Osobe">
+        <Tab fx:id="person" style="-fx-padding: 10; -fx-border-color: transparent;" text="Osobe">
             <content>
-                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: transparent;"
+                         tabClosingPolicy="UNAVAILABLE">
                     <tabs>
-                        <Tab fx:id="employee" text="Zaposleni">
+                        <Tab fx:id="employee" style="-fx-padding: 5;" text="Zaposleni">
                             <content>
                                 <BorderPane>
-                                    <bottom>
-                                        <TableView fx:id="employeeTableView" prefHeight="298.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                            <columns>
-                                                <TableColumn fx:id="employeeId" prefWidth="25.0" text="Id" />
-                                                <TableColumn fx:id="employeeName" prefWidth="75.0" text="Ime" />
-                                                <TableColumn fx:id="employeeSurname" prefWidth="75.0" text="Prezime" />
-                                                <TableColumn fx:id="employeeTelephone" prefWidth="75.0" text="Telefon" />
-                                                <TableColumn fx:id="employeePlace" prefWidth="75.0" text="Mjesto" />
-                                                <TableColumn fx:id="employeeSalary" prefWidth="75.0" text="Plata" />
-                                                <TableColumn fx:id="employeeUniqueIdentifier" prefWidth="100.0" text="JMBG" />
-                                                <TableColumn fx:id="employeeRole" prefWidth="100.0" text="Uloga" />
-                                            </columns>
-                                        </TableView>
-                                    </bottom>
                                     <top>
-                                        <HBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER_RIGHT">
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                              style="-fx-padding: 10;" BorderPane.alignment="CENTER_RIGHT">
                                             <children>
-                                                <Button id="AddEmployee" mnemonicParsing="false" onAction="#addEmployee" text="Dodaj" />
-                                                <Button mnemonicParsing="false" onAction="#deleteEmployee" text="Obriši" />
-                                                <Button mnemonicParsing="false" onAction="#editEmployee" text="Izmijeni" />
+                                                <Button id="AddEmployee" mnemonicParsing="false" onAction="#addEmployee"
+                                                        text="Dodaj">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/add_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#editEmployee"
+                                                        text="Izmijeni">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/edit_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#deleteEmployee"
+                                                        text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
                                             </children>
                                         </HBox>
                                     </top>
+                                    <center>
+                                        <TableView fx:id="employeeTableView" prefHeight="300.0" prefWidth="600.0"
+                                                   stylesheets="@tabpane-style.css" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="employeeId" prefWidth="30.0" text="Id"/>
+                                                <TableColumn fx:id="employeeName" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Ime"/>
+                                                <TableColumn fx:id="employeeSurname" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Prezime"/>
+                                                <TableColumn fx:id="employeeTelephone" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Telefon"/>
+                                                <TableColumn fx:id="employeePlace" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Mjesto"/>
+                                                <TableColumn fx:id="employeeSalary" minWidth="60.0" prefWidth="-1.0"
+                                                             text="Plata"/>
+                                                <TableColumn fx:id="employeeUniqueIdentifier" minWidth="150.0"
+                                                             prefWidth="-1.0" text="JMBG"/>
+                                                <TableColumn fx:id="employeeRole" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Uloga"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
                                 </BorderPane>
                             </content>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/emplyee.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
                         </Tab>
-                        <Tab fx:id="client" text="Klijenti">
+                        <Tab fx:id="client" style="-fx-padding: 5;" text="Klijenti">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/client-icon.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane prefHeight="344.0" prefWidth="600.0">
-                                 <top>
-                                    <HBox prefHeight="40.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#addClient" text="Dodaj" />
-                                          <Button mnemonicParsing="false" onAction="#deleteClient" text="Obriši" />
-                                          <Button mnemonicParsing="false" onAction="#editClient" text="Izmijeni" />
-                                       </children>
-                                    </HBox>
-                                 </top>
-                                 <bottom>
-                                    <TableView fx:id="clientTableView" prefHeight="300.0" prefWidth="315.0" BorderPane.alignment="CENTER">
-                                      <columns>
-                                        <TableColumn fx:id="clientId" prefWidth="25.0" text="Id" />
-                                        <TableColumn fx:id="clientName" prefWidth="75.0" text="Ime" />
-                                          <TableColumn fx:id="clientSurname" prefWidth="75.0" text="Prezime" />
-                                          <TableColumn fx:id="clientTelephone" prefWidth="75.0" text="Telefon" />
-                                          <TableColumn fx:id="clientPlace" prefWidth="75.0" text="Mjesto" />
-                                      </columns>
-                                    </TableView>
-                                 </bottom>
-                              </BorderPane>
-                           </children></AnchorPane>
+                                <BorderPane>
+                                    <top>
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                              style="-fx-padding: 10;" BorderPane.alignment="CENTER_RIGHT">
+                                            <children>
+                                                <Button id="AddEmployee" mnemonicParsing="false" onAction="#addClient"
+                                                        text="Dodaj">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/add_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#editClient" text="Izmijeni">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/edit_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#deleteClient" text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="clientTableView" prefHeight="300.0" prefWidth="600.0"
+                                                   stylesheets="@tabpane-style.css" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="clientId" prefWidth="30.0" text="Id"/>
+                                                <TableColumn fx:id="clientName" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Ime"/>
+                                                <TableColumn fx:id="clientSurname" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Prezime"/>
+                                                <TableColumn fx:id="clientTelephone" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Telefon"/>
+                                                <TableColumn fx:id="clientPlace" minWidth="100.0" prefWidth="-1.0"
+                                                             text="Mjesto"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
                             </content>
                         </Tab>
                     </tabs>
                 </TabPane>
             </content>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../photos/person.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
         </Tab>
-        <Tab fx:id="order" style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Narudžbe">
-         <content>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab fx:id="created" text="Kreirani predračuni">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane layoutX="1.0" layoutY="2.0" prefHeight="340.0" prefWidth="600.0">
-                                 <top>
-                                    <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button fx:id="createOrderButton" mnemonicParsing="false" onAction="#createOrder" text="Dodaj" />
-                                          <Button fx:id="deleteCreatedOrderButton" mnemonicParsing="false" onAction="#deleteCreatedOrder" text="Obriši" />
-                                          <Button fx:id="changeStatusButton" mnemonicParsing="false" onAction="#changeCreatedOrderStatus" text="Potvrdi" />
-                                          <Button fx:id="editCreatedOrderButton" mnemonicParsing="false" onAction="#editCreatedOrder" text="Izmijeni" />
-                                       </children>
-                                    </HBox>
-                                 </top>
-                                 <bottom>
-                                    <TableView fx:id="createdOrdersTableView" prefHeight="296.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                      <columns>
-                                        <TableColumn fx:id="createdOrderId" prefWidth="75.0" text="Id" />
-                                        <TableColumn fx:id="createdOrderDate" prefWidth="75.0" text="Datum" />
-                                          <TableColumn fx:id="createdOrderClient" prefWidth="75.0" text="Klijent" />
-                                          <TableColumn fx:id="createdOrderAddress" prefWidth="75.0" text="Adresa" />
-                                          <TableColumn fx:id="createdOrderPlace" prefWidth="75.0" text="Mjesto" />
-                                          <TableColumn fx:id="createdOrderTotalPrice" prefWidth="75.0" text="Cijena" />
-                                      </columns>
-                                    </TableView>
-                                 </bottom>
-                              </BorderPane>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                <Tab fx:id="inMade" text="U izradi">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane layoutX="-1.0" layoutY="-1.0" prefHeight="341.0" prefWidth="600.0">
-                                 <top>
-                                    <HBox prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button fx:id="deleteOrderInMadeButton" mnemonicParsing="false" onAction="#deleteOrderInMade" text="Obriši" />
-                                          <Button fx:id="moveToClosedOrdersButton" mnemonicParsing="false" onAction="#changeOrderInMadeStatus" text="Završi" />
-                                          <Button fx:id="editOrderInMadeButton" mnemonicParsing="false" onAction="#editOrderInMade" text="Izmijeni" />
-                                       </children>
-                                    </HBox>
-                                 </top>
-                                 <bottom>
-                                    <TableView fx:id="ordersInMadeTableView" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                      <columns>
-                                        <TableColumn fx:id="orderInMadeId" prefWidth="75.0" text="Id" />
-                                        <TableColumn fx:id="orderInMadeDate" prefWidth="75.0" text="Datum" />
-                                          <TableColumn fx:id="orderInMadeClient" prefWidth="75.0" text="Klijent" />
-                                          <TableColumn fx:id="orderInMadeAddress" prefWidth="75.0" text="Adresa" />
-                                          <TableColumn fx:id="orderInMadePlace" prefWidth="75.0" text="Mjesto" />
-                                          <TableColumn fx:id="orderInMadeTotalPrice" prefWidth="75.0" text="Cijena" />
-                                      </columns>
-                                    </TableView>
-                                 </bottom>
-                              </BorderPane>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab fx:id="Closed" text="Završeno">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <BorderPane prefHeight="340.0" prefWidth="600.0">
-                                 <top>
-                                    <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button fx:id="deleteClosedOrderButton" mnemonicParsing="false" onAction="#deleteClosedOrder" text="Obriši" />
-                                       </children>
-                                    </HBox>
-                                 </top>
-                                 <bottom>
-                                    <TableView fx:id="closedOrdersTableView" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-                                      <columns>
-                                        <TableColumn fx:id="closedOrderId" prefWidth="75.0" text="Id" />
-                                        <TableColumn fx:id="closedOrderDate" prefWidth="75.0" text="Datum" />
-                                          <TableColumn fx:id="closedOrderClient" prefWidth="75.0" text="Klijent" />
-                                          <TableColumn fx:id="closedOrderAddress" prefWidth="75.0" text="Adresa" />
-                                          <TableColumn fx:id="closedOrderPlace" prefWidth="75.0" text="Mjesto" />
-                                          <TableColumn fx:id="closedOrderTotalPrice" prefWidth="75.0" text="Cijena" />
-                                      </columns>
-                                    </TableView>
-                                 </bottom>
-                              </BorderPane>
-                           </children></AnchorPane>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </content></Tab>
-        <Tab style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Materijali" />
-        <Tab style="-fx-pref-width: 146; -fx-background-color: afeeee; -fx-border-style: solid; -fx-border-color: silver;" text="Artikli" />
+        <Tab fx:id="order" style="-fx-padding: 10;" text="Narudžbe">
+            <content>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="created" style="-fx-padding: 5;" text="Kreirani predračuni">
+                            <content>
+                                <BorderPane prefHeight="340.0" prefWidth="600.0">
+                                    <top>
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                              style="-fx-padding: 10;" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button fx:id="createOrderButton" mnemonicParsing="false"
+                                                        onAction="#createOrder" text="Dodaj">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/add_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="editCreatedOrderButton" mnemonicParsing="false"
+                                                        onAction="#editCreatedOrder" text="Izmijeni">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/edit_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="deleteCreatedOrderButton" mnemonicParsing="false"
+                                                        onAction="#deleteCreatedOrder" text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="changeStatusButton" mnemonicParsing="false"
+                                                        onAction="#changeCreatedOrderStatus" text="Potvrdi">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/confirm.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="createdOrdersTableView" prefHeight="296.0" prefWidth="600.0"
+                                                   BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="createdOrderId" minWidth="30.0" prefWidth="-1.0"
+                                                             text="Id"/>
+                                                <TableColumn fx:id="createdOrderDate" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Datum"/>
+                                                <TableColumn fx:id="createdOrderClient"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Klijent"/>
+                                                <TableColumn fx:id="createdOrderAddress"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Adresa"/>
+                                                <TableColumn fx:id="createdOrderPlace" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Mjesto"/>
+                                                <TableColumn fx:id="createdOrderTotalPrice"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Cijena"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/created-estimates.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab fx:id="inMade" style="-fx-padding: 5;" text="U izradi">
+                            <content>
+                                <BorderPane prefHeight="341.0" prefWidth="600.0">
+                                    <top>
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                              style="-fx-padding: 10;" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Button fx:id="editOrderInMadeButton" mnemonicParsing="false"
+                                                        onAction="#editOrderInMade" text="Izmijeni">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/edit_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="deleteOrderInMadeButton" mnemonicParsing="false"
+                                                        onAction="#deleteOrderInMade" text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="moveToClosedOrdersButton" mnemonicParsing="false"
+                                                        onAction="#changeOrderInMadeStatus" text="Završi">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/confirm.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                            <BorderPane.margin>
+                                                <Insets/>
+                                            </BorderPane.margin>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="ordersInMadeTableView" prefHeight="290.0" prefWidth="600.0"
+                                                   BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="orderInMadeId" maxWidth="1.7976931348623157E308"
+                                                             minWidth="30.0" prefWidth="-1.0" text="Id"/>
+                                                <TableColumn fx:id="orderInMadeDate" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Datum"/>
+                                                <TableColumn fx:id="orderInMadeClient" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Klijent"/>
+                                                <TableColumn fx:id="orderInMadeAddress"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Adresa"/>
+                                                <TableColumn fx:id="orderInMadePlace" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Mjesto"/>
+                                                <TableColumn fx:id="orderInMadeTotalPrice"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Cijena"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/in-progress.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                        <Tab fx:id="Closed" style="-fx-padding: 5;" text="Završeno">
+                            <content>
+                                <BorderPane prefHeight="340.0" prefWidth="600.0">
+                                    <top>
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" style="-fx-padding: 10;"
+                                              BorderPane.alignment="TOP_RIGHT">
+                                            <children>
+                                                <Button fx:id="deleteClosedOrderButton" mnemonicParsing="false"
+                                                        onAction="#deleteClosedOrder" text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="closedOrdersTableView" prefHeight="290.0" prefWidth="600.0"
+                                                   BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="closedOrderId" maxWidth="1.7976931348623157E308"
+                                                             minWidth="30.0" prefWidth="-1.0" text="Id"/>
+                                                <TableColumn fx:id="closedOrderDate" minWidth="100.0" prefWidth="75.0"
+                                                             text="Datum"/>
+                                                <TableColumn fx:id="closedOrderClient" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Klijent"/>
+                                                <TableColumn fx:id="closedOrderAddress"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Adresa"/>
+                                                <TableColumn fx:id="closedOrderPlace" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Mjesto"/>
+                                                <TableColumn fx:id="closedOrderTotalPrice"
+                                                             maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                                             prefWidth="-1.0" text="Cijena"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/finished.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../photos/order-icon.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Tab>
+        <Tab fx:id="items" style="-fx-padding: 10;" text="Artikli">
+            <content>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="prefabricatedItems" style="-fx-padding: 5;" text="Montažni artikli">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/assembly-items.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <content>
+                                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                                    <tabs>
+                                        <Tab style="-fx-padding: 5;" text="Bazeni">
+                                            <graphic>
+                                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../photos/pool.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <content>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                    <top>
+                                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                                              style="-fx-padding: 10;" BorderPane.alignment="TOP_RIGHT">
+                                                            <children>
+                                                                <Button fx:id="addPoolButton" mnemonicParsing="false"
+                                                                        onAction="#addPool" text="Dodaj">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/add_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="editPoolButton" layoutX="10.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#editPool" text="Izmijeni">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/edit_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="deletePoolButton" layoutX="62.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#deletePool" text="Obriši">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/delete_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                    </top>
+                                                    <center>
+                                                        <TableView fx:id="poolTableView" prefHeight="200.0"
+                                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <columns>
+                                                                <TableColumn fx:id="poolId"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="30.0" prefWidth="-1.0"
+                                                                             text="Id"/>
+                                                                <TableColumn fx:id="poolName"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Naziv"/>
+                                                                <TableColumn fx:id="poolPrice"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Cijena"/>
+                                                                <TableColumn fx:id="poolDiameter" prefWidth="75.0"
+                                                                             text="Prečnik"/>
+                                                                <TableColumn fx:id="poolDepth" prefWidth="75.0"
+                                                                             text="Dubina"/>
+                                                                <TableColumn fx:id="poolDescription"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="400.0" prefWidth="-1.0"
+                                                                             text="Opis"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </center>
+                                                </BorderPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab style="-fx-padding: 5;" text="Platforme">
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../photos/deck.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <content>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                    <top>
+                                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                                              style="-fx-padding: 10;" BorderPane.alignment="TOP_RIGHT">
+                                                            <children>
+                                                                <Button fx:id="addDeckButton" mnemonicParsing="false"
+                                                                        onAction="#addDeck" text="Dodaj">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/add_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="editDeckButton" layoutX="10.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#editDeck" text="Izmijeni">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/edit_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="deleteDeckButton" layoutX="62.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#deleteDeck" text="Obriši">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/delete_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                    </top>
+                                                    <center>
+                                                        <TableView fx:id="deckTableView" prefHeight="200.0"
+                                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <columns>
+                                                                <TableColumn fx:id="deckId"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="30.0" prefWidth="-1.0"
+                                                                             text="Id"/>
+                                                                <TableColumn fx:id="deckName"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Naziv"/>
+                                                                <TableColumn fx:id="deckPrice"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Cijena"/>
+                                                                <TableColumn fx:id="deckDiameter"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Prečnik"/>
+                                                                <TableColumn fx:id="deckDepth"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Dubina"/>
+                                                                <TableColumn fx:id="deckScope"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Površina"/>
+                                                                <TableColumn fx:id="deckMaterial"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Vrsta materijala"/>
+                                                                <TableColumn fx:id="deckDescription"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="200.0" prefWidth="-1.0"
+                                                                             text="Opis"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </center>
+                                                </BorderPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab style="-fx-padding: 5;" text="Obloge">
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                           preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../photos/revetment.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <content>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                                    <top>
+                                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                                              style="-fx-padding: 10;" BorderPane.alignment="TOP_RIGHT">
+                                                            <children>
+                                                                <Button fx:id="addRevetmentButton"
+                                                                        mnemonicParsing="false" onAction="#addRevetment"
+                                                                        text="Dodaj">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/add_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="editRevetmentButton" layoutX="10.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#editRevetment" text="Izmijeni">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/edit_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                                <Button fx:id="deleteRevetmentButton" layoutX="62.0"
+                                                                        layoutY="10.0" mnemonicParsing="false"
+                                                                        onAction="#deleteRevetment" text="Obriši">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0"
+                                                                                   pickOnBounds="true"
+                                                                                   preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../photos/delete_button.png"/>
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                    </top>
+                                                    <center>
+                                                        <TableView fx:id="revetmentTableView" prefHeight="200.0"
+                                                                   prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                            <columns>
+                                                                <TableColumn fx:id="revetmentId"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="30.0" prefWidth="-1.0"
+                                                                             text="Id"/>
+                                                                <TableColumn fx:id="revetmentName"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Naziv"/>
+                                                                <TableColumn fx:id="revetmentPrice"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Cijena"/>
+                                                                <TableColumn fx:id="revetmentDiameter"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Prečnik"/>
+                                                                <TableColumn fx:id="revetmentDepth"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Dubina"/>
+                                                                <TableColumn fx:id="revetmentMaterial"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="100.0" prefWidth="-1.0"
+                                                                             text="Vrsta materijala"/>
+                                                                <TableColumn fx:id="revetmentDescription"
+                                                                             maxWidth="1.7976931348623157E308"
+                                                                             minWidth="200.0" prefWidth="-1.0"
+                                                                             text="Opis"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </center>
+                                                </BorderPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </content>
+                        </Tab>
+                        <Tab fx:id="equipment" style="-fx-padding: 5;" text="Oprema">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../photos/equipment.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <top>
+                                        <HBox alignment="TOP_RIGHT" prefHeight="40.0" spacing="10.0"
+                                              style="-fx-padding: 10;" BorderPane.alignment="TOP_RIGHT">
+                                            <children>
+                                                <Button fx:id="addEquipmentButton" mnemonicParsing="false"
+                                                        onAction="#addEquipment" text="Dodaj">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/add_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="editEquipmentButton" layoutX="10.0" layoutY="10.0"
+                                                        mnemonicParsing="false" onAction="#editEquipment"
+                                                        text="Izmijeni">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/edit_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="deleteEquipmentButton" layoutX="62.0" layoutY="10.0"
+                                                        mnemonicParsing="false" onAction="#deleteEquipment"
+                                                        text="Obriši">
+                                                    <graphic>
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../photos/delete_button.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                    </top>
+                                    <center>
+                                        <TableView fx:id="equipmentTableView" prefHeight="200.0" prefWidth="200.0"
+                                                   BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn fx:id="equipmentId" maxWidth="1.7976931348623157E308"
+                                                             minWidth="30.0" prefWidth="-1.0" text="Id"/>
+                                                <TableColumn fx:id="equipmentName" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Naziv"/>
+                                                <TableColumn fx:id="equipmentPrice" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Cijena"/>
+                                                <TableColumn fx:id="equipmentWarranty" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Garancija"/>
+                                                <TableColumn fx:id="equipmentType" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Vrsta"/>
+                                                <TableColumn fx:id="equipmentProducer" maxWidth="1.7976931348623157E308"
+                                                             minWidth="100.0" prefWidth="-1.0" text="Proizvođač"/>
+                                                <TableColumn fx:id="equipmentDescription"
+                                                             maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                                             prefWidth="-1.0" text="Opis"/>
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </content>
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../photos/item.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Tab>
+        <Tab style="-fx-padding: 10;" text="Materijali">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../photos/material.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Tab>
+        <Tab style="-fx-padding: 10;" text="Poslovanje">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../photos/business.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+        </Tab>
     </tabs>
 </TabPane>

@@ -2,6 +2,8 @@ package com.bayensolutions.dao.mysql;
 
 import com.bayensolutions.dao.RevetmentDAO;
 import com.bayensolutions.model.Deck;
+import com.bayensolutions.model.Item;
+import com.bayensolutions.model.PrefabricatedItem;
 import com.bayensolutions.model.Revetment;
 import com.bayensolutions.util.ConnectionPool;
 
@@ -36,5 +38,31 @@ public class RevetmentDAOImplementation implements RevetmentDAO {
             ConnectionPool.getInstance().checkIn(connection);
         }
         return list;
+    }
+
+    @Override
+    public boolean createRevetment(Revetment revetment) {
+        ItemDAOImplementation itemDAOImplementation=new ItemDAOImplementation();
+        int index=itemDAOImplementation.createItem(new Item(revetment.getId(), revetment.getName(), revetment.getPrice(), revetment.getDescription()));
+        PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+        prefabricatedItemDAOImplementation.createPrefabricatedItem(new PrefabricatedItem(index, revetment.getName(), revetment.getPrice(), revetment.getDescription(), revetment.getPoolDiameter(), revetment.getPoolDepth()));
+
+
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        String callStatementItem = "{call kreiranjeObloge(?,?)}";
+        boolean result;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement=connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1,index);
+            callableStatement.setString(2,revetment.getTypeOfMaterial());
+            result=callableStatement.executeUpdate() == 1;
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

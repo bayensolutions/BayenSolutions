@@ -1,0 +1,4 @@
+.tab-pane:focused .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+}

@@ -2,6 +2,8 @@ package com.bayensolutions.dao.mysql;
 
 import com.bayensolutions.dao.DeckDAO;
 import com.bayensolutions.model.Deck;
+import com.bayensolutions.model.Item;
+import com.bayensolutions.model.PrefabricatedItem;
 import com.bayensolutions.util.ConnectionPool;
 
 import java.sql.CallableStatement;
@@ -34,5 +36,32 @@ public class DeckDAOImplementation implements DeckDAO {
             ConnectionPool.getInstance().checkIn(connection);
         }
         return list;
+    }
+
+    @Override
+    public boolean createDeck(Deck deck) {
+        ItemDAOImplementation itemDAOImplementation=new ItemDAOImplementation();
+        int index=itemDAOImplementation.createItem(new Item(deck.getId(), deck.getName(), deck.getPrice(), deck.getDescription()));
+        PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+        prefabricatedItemDAOImplementation.createPrefabricatedItem(new PrefabricatedItem(index, deck.getName(), deck.getPrice(), deck.getDescription(), deck.getPoolDiameter(), deck.getPoolDepth()));
+
+
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        String callStatementItem = "{call kreiranjePlatforme(?,?,?)}";
+        boolean result;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement=connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1,index);
+            callableStatement.setDouble(2,deck.getScope());
+            callableStatement.setString(3,deck.getTypeOfMaterial());
+            result=callableStatement.executeUpdate() == 1;
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

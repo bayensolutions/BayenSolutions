@@ -1,10 +1,7 @@
 package com.bayensolutions.dao.mysql;
 
 import com.bayensolutions.dao.EquipmentDAO;
-import com.bayensolutions.model.Deck;
-import com.bayensolutions.model.Equipment;
-import com.bayensolutions.model.EquipmentProducer;
-import com.bayensolutions.model.EquipmentType;
+import com.bayensolutions.model.*;
 import com.bayensolutions.util.ConnectionPool;
 
 import java.sql.CallableStatement;
@@ -37,5 +34,30 @@ public class EquipmentDAOImplementation implements EquipmentDAO {
             ConnectionPool.getInstance().checkIn(connection);
         }
         return list;
+    }
+
+    @Override
+    public boolean createEquipment(Equipment equipment) {
+        ItemDAOImplementation itemDAOImplementation=new ItemDAOImplementation();
+        int index=itemDAOImplementation.createItem(new Item(equipment.getId(), equipment.getName(), equipment.getPrice(), equipment.getDescription()));
+
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        String callStatementItem = "{call kreiranjeOpreme(?,?,?,?)}";
+        boolean result;
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement=connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1,index);
+            callableStatement.setInt(2,equipment.getEquipmentType().getId());
+            callableStatement.setInt(3,equipment.getEquipmentProducer().getId());
+            callableStatement.setInt(4,equipment.getWarrantyDuration());
+            result=callableStatement.executeUpdate() == 1;
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

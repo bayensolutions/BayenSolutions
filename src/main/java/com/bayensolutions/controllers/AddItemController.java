@@ -194,8 +194,8 @@ public class AddItemController implements Initializable {
         poolDAOImplementation=new PoolDAOImplementation();
         poolId.setCellValueFactory(new PropertyValueFactory<Pool,Integer>("id"));
         poolName.setCellValueFactory(new PropertyValueFactory<Pool,String>("name"));
-        poolDiameter.setCellValueFactory(new PropertyValueFactory<Pool,Double>("diameter"));
-        poolDepth.setCellValueFactory(new PropertyValueFactory<Pool,Double>("depth"));
+        poolDiameter.setCellValueFactory(new PropertyValueFactory<Pool,Double>("poolDiameter"));
+        poolDepth.setCellValueFactory(new PropertyValueFactory<Pool,Double>("poolDepth"));
         poolPrice.setCellValueFactory(new PropertyValueFactory<Pool,Double>("price"));
         searchPools();
     }
@@ -278,14 +278,14 @@ public class AddItemController implements Initializable {
 
     public void showStage(MainWindowController mainWindowController) throws IOException {
         FXMLLoader loader = new FXMLLoader(AddItemController.class.getResource("/fxml/AddItems.fxml"));
-        Scene scene = new Scene(loader.load(), 800, 700, Color.TRANSPARENT);
+        Scene scene = new Scene(loader.load(), 900, 700, Color.TRANSPARENT);
         Stage stage = new Stage();
         stage.setTitle("Bayen solutions - dodavanje artikala");
         String path = "resources/photos/icon.png";
         Image applicationIcon = new Image(new File(path).toURI().toString());
         stage.getIcons().add(applicationIcon);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
         ((AddItemController) loader.getController()).addParameters(mainWindowController);
     }

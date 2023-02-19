@@ -12,5 +12,6 @@ public class Util {
     public static final String DELETE_SUCCESS = "Uspješno obrisano!";
     public static final String DELETE_FAILURE = "Neuspješno obrisano!";
     public static final String SELECT_BEFORE_DELETE = "Označite stavku prije brisanja!";
-    public static final String ITEM_ALREADY_ADDED="Artikal već postoji na narudžbi!";
+    public static final String ITEM_ALREADY_ADDED = "Artikal već postoji na narudžbi!";
+    public static final String JMBG_LENGTH = "JMBG nije odgovarajuće dužine.";
 }

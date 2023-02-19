@@ -1,10 +1,7 @@
 package com.bayensolutions.controllers;
 
-import com.bayensolutions.dao.mysql.OrderDAOImplementation;
-import com.bayensolutions.dao.mysql.PersonDAOImplementation;
-import com.bayensolutions.model.Employee;
-import com.bayensolutions.model.Order;
-import com.bayensolutions.model.Person;
+import com.bayensolutions.dao.mysql.*;
+import com.bayensolutions.model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,6 +46,18 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private TableView<Order> closedOrdersTableView;
+
+    @FXML
+    private TableView<Pool> poolTableView;
+
+    @FXML
+    private TableView<Deck> deckTableView;
+
+    @FXML
+    private TableView<Revetment> revetmentTableView;
+
+    @FXML
+    private TableView<Equipment> equipmentTableView;
 
     @FXML
     private TableColumn<Employee, Integer> employeeId;
@@ -142,26 +152,113 @@ public class MainWindowController implements Initializable {
     @FXML
     private TableColumn<Order, Double> closedOrderTotalPrice;
 
-    PersonDAOImplementation personDAOImplementation=new PersonDAOImplementation();
-    OrderDAOImplementation orderDAOImplementation=new OrderDAOImplementation();
+    @FXML
+    private TableColumn<Pool, Integer> poolId;
+
+    @FXML
+    private TableColumn<Pool, String> poolName;
+
+    @FXML
+    private TableColumn<Pool, Double> poolDiameter;
+
+    @FXML
+    private TableColumn<Pool, Double> poolDepth;
+
+    @FXML
+    private TableColumn<Pool, Double> poolPrice;
+
+    @FXML
+    private TableColumn<Pool, String> poolDescription;
+
+    @FXML
+    private TableColumn<Deck, Integer> deckId;
+
+    @FXML
+    private TableColumn<Deck, String> deckName;
+
+    @FXML
+    private TableColumn<Deck, Double> deckDiameter;
+
+    @FXML
+    private TableColumn<Deck, Double> deckDepth;
+
+    @FXML
+    private TableColumn<Deck, Double> deckPrice;
+
+    @FXML
+    private TableColumn<Deck, String> deckMaterial;
+
+    @FXML
+    private TableColumn<Deck, Double> deckScope;
+
+    @FXML
+    private TableColumn<Deck, String> deckDescription;
+
+    @FXML
+    private TableColumn<Revetment, Integer> revetmentId;
+
+    @FXML
+    private TableColumn<Revetment, String> revetmentName;
+
+    @FXML
+    private TableColumn<Revetment, Double> revetmentDiameter;
+
+    @FXML
+    private TableColumn<Revetment, Double> revetmentDepth;
+
+    @FXML
+    private TableColumn<Revetment, Double> revetmentPrice;
+
+    @FXML
+    private TableColumn<Revetment, String> revetmentMaterial;
+
+    @FXML
+    private TableColumn<Revetment, String> revetmentDescription;
+
+    @FXML
+    private TableColumn<Equipment, Integer> equipmentId;
+
+    @FXML
+    private TableColumn<Equipment, String> equipmentName;
+
+    @FXML
+    private TableColumn<Equipment, Integer> equipmentWarranty;
+
+    @FXML
+    private TableColumn<Equipment, String> equipmentType;
+
+    @FXML
+    private TableColumn<Equipment, String> equipmentProducer;
+
+    @FXML
+    private TableColumn<Equipment, Double> equipmentPrice;
+
+    @FXML
+    private TableColumn<Equipment, String> equipmentDescription;
+
+    PersonDAOImplementation personDAOImplementation = new PersonDAOImplementation();
+    OrderDAOImplementation orderDAOImplementation = new OrderDAOImplementation();
+    PoolDAOImplementation poolDAOImplementation;
+    DeckDAOImplementation deckDAOImplementation;
+    RevetmentDAOImplementation revetmentDAOImplementation;
+    EquipmentDAOImplementation equipmentDAOImplementation;
+
     ObservableList<Employee> employeeList = FXCollections.observableArrayList(personDAOImplementation.getEmployees());
     ObservableList<Person> clientList = FXCollections.observableArrayList(personDAOImplementation.getClients());
 
 
-
     public static void showStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(MainWindowController.class.getResource("/fxml/MainWindow.fxml"));
-        Scene scene = new Scene(loader.load(), 600, 600, Color.TRANSPARENT);
+        Scene scene = new Scene(loader.load(), 800, 600, Color.TRANSPARENT);
         Stage stage = new Stage();
         stage.setTitle("Bayen Solutions glavni prozor");
         String path = "resources/photos/icon.png";
         Image applicationIcon = new Image(new File(path).toURI().toString());
         stage.getIcons().add(applicationIcon);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
-
 
 
     @Override
@@ -171,6 +268,10 @@ public class MainWindowController implements Initializable {
         initializeCreatedOrders();
         initializeOrdersInMade();
         initializeClosedOrders();
+        initializePools();
+        initializeDecks();
+        initializeRevetments();
+        initializeEquipment();
     }
 
     public void initializeEmployees() {
@@ -230,6 +331,54 @@ public class MainWindowController implements Initializable {
         searchClosedOrders();
     }
 
+    public void initializePools() {
+        poolDAOImplementation = new PoolDAOImplementation();
+        poolId.setCellValueFactory(new PropertyValueFactory<Pool, Integer>("id"));
+        poolName.setCellValueFactory(new PropertyValueFactory<Pool, String>("name"));
+        poolDiameter.setCellValueFactory(new PropertyValueFactory<Pool, Double>("poolDiameter"));
+        poolDepth.setCellValueFactory(new PropertyValueFactory<Pool, Double>("poolDepth"));
+        poolPrice.setCellValueFactory(new PropertyValueFactory<Pool, Double>("price"));
+        poolDescription.setCellValueFactory(new PropertyValueFactory<Pool, String>("description"));
+        searchPools();
+    }
+
+    public void initializeDecks() {
+        deckDAOImplementation = new DeckDAOImplementation();
+        deckId.setCellValueFactory(new PropertyValueFactory<Deck, Integer>("id"));
+        deckName.setCellValueFactory(new PropertyValueFactory<Deck, String>("name"));
+        deckDepth.setCellValueFactory(new PropertyValueFactory<Deck, Double>("poolDepth"));
+        deckDiameter.setCellValueFactory(new PropertyValueFactory<Deck, Double>("poolDiameter"));
+        deckPrice.setCellValueFactory(new PropertyValueFactory<Deck, Double>("price"));
+        deckScope.setCellValueFactory(new PropertyValueFactory<Deck, Double>("scope"));
+        deckMaterial.setCellValueFactory(new PropertyValueFactory<Deck, String>("typeOfMaterial"));
+        deckDescription.setCellValueFactory(new PropertyValueFactory<Deck, String>("description"));
+        searchDecks();
+    }
+
+    public void initializeRevetments() {
+        revetmentDAOImplementation = new RevetmentDAOImplementation();
+        revetmentId.setCellValueFactory(new PropertyValueFactory<Revetment, Integer>("id"));
+        revetmentName.setCellValueFactory(new PropertyValueFactory<Revetment, String>("name"));
+        revetmentDepth.setCellValueFactory(new PropertyValueFactory<Revetment, Double>("poolDepth"));
+        revetmentDiameter.setCellValueFactory(new PropertyValueFactory<Revetment, Double>("poolDiameter"));
+        revetmentPrice.setCellValueFactory(new PropertyValueFactory<Revetment, Double>("price"));
+        revetmentMaterial.setCellValueFactory(new PropertyValueFactory<Revetment, String>("typeOfMaterial"));
+        revetmentDescription.setCellValueFactory(new PropertyValueFactory<Revetment, String>("description"));
+        searchRevetments();
+    }
+
+    public void initializeEquipment() {
+        equipmentDAOImplementation = new EquipmentDAOImplementation();
+        equipmentId.setCellValueFactory(new PropertyValueFactory<Equipment, Integer>("id"));
+        equipmentName.setCellValueFactory(new PropertyValueFactory<Equipment, String>("name"));
+        equipmentPrice.setCellValueFactory(new PropertyValueFactory<Equipment, Double>("price"));
+        equipmentWarranty.setCellValueFactory(new PropertyValueFactory<Equipment, Integer>("warrantyDuration"));
+        equipmentProducer.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEquipmentProducer().getName()));
+        equipmentType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEquipmentType().getName()));
+        equipmentDescription.setCellValueFactory(new PropertyValueFactory<Equipment, String>("description"));
+        searchEquipment();
+    }
+
     public void searchEmployees() {
         employeeTableView.getItems().clear();
         List<Employee> list = personDAOImplementation.getEmployees();
@@ -273,7 +422,29 @@ public class MainWindowController implements Initializable {
         closedOrdersTableView.setItems(FXCollections.observableArrayList(closedOrdersList));
     }
 
+    public void searchPools() {
+        List<Pool> list = poolDAOImplementation.getPools();
+        poolTableView.getItems().clear();
+        poolTableView.setItems(FXCollections.observableArrayList(list));
+    }
 
+    public void searchDecks() {
+        List<Deck> list = deckDAOImplementation.getDecks();
+        deckTableView.getItems().clear();
+        deckTableView.setItems(FXCollections.observableArrayList(list));
+    }
+
+    public void searchRevetments() {
+        List<Revetment> list = revetmentDAOImplementation.getRevetments();
+        revetmentTableView.getItems().clear();
+        revetmentTableView.setItems(FXCollections.observableArrayList(list));
+    }
+
+    public void searchEquipment() {
+        List<Equipment> list = equipmentDAOImplementation.getEquipment();
+        equipmentTableView.getItems().clear();
+        equipmentTableView.setItems(FXCollections.observableArrayList(list));
+    }
 
     @FXML
     private void addEmployee() throws IOException {
@@ -328,7 +499,6 @@ public class MainWindowController implements Initializable {
     }
 
 
-
     @FXML
     private void createOrder() throws IOException {
         CreateOrderController createOrderController = new CreateOrderController();
@@ -336,44 +506,44 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void deleteCreatedOrder(){
+    private void deleteCreatedOrder() {
         deleteOrder(createdOrdersTableView);
     }
 
     @FXML
-    private void deleteOrderInMade(){
+    private void deleteOrderInMade() {
         deleteOrder(ordersInMadeTableView);
     }
 
     @FXML
-    private void deleteClosedOrder(){
+    private void deleteClosedOrder() {
         deleteOrder(closedOrdersTableView);
     }
 
-    public void deleteOrder(TableView<Order> tableView){
-        ObservableList<Order> selectedOrders,allOrders;
-        selectedOrders=tableView.getSelectionModel().getSelectedItems();
-        allOrders=tableView.getItems();
-        for(Order order:selectedOrders){
+    public void deleteOrder(TableView<Order> tableView) {
+        ObservableList<Order> selectedOrders, allOrders;
+        selectedOrders = tableView.getSelectionModel().getSelectedItems();
+        allOrders = tableView.getItems();
+        for (Order order : selectedOrders) {
             allOrders.remove(order);
             orderDAOImplementation.deleteOrder(order);
         }
     }
 
     @FXML
-    private void changeCreatedOrderStatus(){
+    private void changeCreatedOrderStatus() {
         changeOrderStatus(createdOrdersTableView);
     }
 
     @FXML
-    private void changeOrderInMadeStatus(){
+    private void changeOrderInMadeStatus() {
         changeOrderStatus(ordersInMadeTableView);
     }
 
-    public void changeOrderStatus(TableView<Order> tableView){
+    public void changeOrderStatus(TableView<Order> tableView) {
         ObservableList<Order> selectedOrders;
-        selectedOrders=tableView.getSelectionModel().getSelectedItems();
-        orderDAOImplementation.changeOrderStatus(selectedOrders.get(0),selectedOrders.get(0).getStatus()+1);
+        selectedOrders = tableView.getSelectionModel().getSelectedItems();
+        orderDAOImplementation.changeOrderStatus(selectedOrders.get(0), selectedOrders.get(0).getStatus() + 1);
         searchCreatedOrders();
         searchOrdersInMade();
         searchClosedOrders();
@@ -391,8 +561,72 @@ public class MainWindowController implements Initializable {
 
     public void editOrder(TableView<Order> tableView) throws IOException {
         ObservableList<Order> selectedOrders;
-        selectedOrders=tableView.getSelectionModel().getSelectedItems();
+        selectedOrders = tableView.getSelectionModel().getSelectedItems();
         EditOrderController editOrderController = new EditOrderController();
-        editOrderController.showStage(selectedOrders.get(0),this);
+        editOrderController.showStage(selectedOrders.get(0), this);
+    }
+
+    @FXML
+    private void addPool() throws IOException {
+        AddPoolController addPoolController = new AddPoolController();
+        addPoolController.showStage(this);
+    }
+
+    @FXML
+    private void editPool() {
+        // TODO:
+    }
+
+    @FXML
+    private void deletePool() {
+        // TODO:
+    }
+
+    @FXML
+    private void addDeck() throws IOException {
+        AddDeckController addDeckController = new AddDeckController();
+        addDeckController.showStage(this);
+    }
+
+    @FXML
+    private void editDeck() throws IOException {
+        // TODO
+    }
+
+    @FXML
+    private void deleteDeck() throws IOException {
+        // TODO
+    }
+
+    @FXML
+    private void addRevetment() throws IOException {
+        AddRevetmentController addRevetmentController = new AddRevetmentController();
+        addRevetmentController.showStage(this);
+    }
+
+    @FXML
+    private void editRevetment() throws IOException {
+        // TODO
+    }
+
+    @FXML
+    private void deleteRevetment() throws IOException {
+        // TODO
+    }
+
+    @FXML
+    private void addEquipment() throws IOException {
+        AddEquipmentController addEquipmentController = new AddEquipmentController();
+        addEquipmentController.showStage(this);
+    }
+
+    @FXML
+    private void editEquipment() throws IOException {
+        // TODO
+    }
+
+    @FXML
+    private void deleteEquipment() throws IOException {
+        // TODO
     }
 }

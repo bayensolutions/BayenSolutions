@@ -27,10 +27,7 @@ public class EquipmentType {
 
     @Override
     public String toString() {
-        return "EquipmentType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
 }

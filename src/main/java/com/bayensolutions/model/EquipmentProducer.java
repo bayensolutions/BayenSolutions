@@ -27,9 +27,6 @@ public class EquipmentProducer {
 
     @Override
     public String toString() {
-        return "EquipmentProducer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

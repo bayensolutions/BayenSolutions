@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface EquipmentDAO {
     List<Equipment> getEquipment();
+
+    boolean createEquipment(Equipment equipment);
 }

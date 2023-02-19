@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DeckDAO {
     List<Deck> getDecks();
+
+    boolean createDeck(Deck deck);
 }

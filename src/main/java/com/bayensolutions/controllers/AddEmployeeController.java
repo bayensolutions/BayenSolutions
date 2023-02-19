@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -64,41 +65,46 @@ public class AddEmployeeController {
     @FXML
     private TextField usernameTF;
 
-    private List<String> getCityName(List<Place> list){
-        List<String> names=new LinkedList<>();
+    private List<String> getCityName(List<Place> list) {
+        List<String> names = new LinkedList<>();
 
-        for(Place place:list){
+        for (Place place : list) {
             names.add(place.getName());
         }
         return names;
     }
 
-    ObservableList<Place> placeList= FXCollections.observableArrayList(new PlaceDAOImplementation().getPlaces());
-    ObservableList<EmployeeRole> roleList=FXCollections.observableArrayList(new EmployeeRoleDAOImplementation().getEmloyeeRoles());
+    ObservableList<Place> placeList = FXCollections.observableArrayList(new PlaceDAOImplementation().getPlaces());
+    ObservableList<EmployeeRole> roleList = FXCollections.observableArrayList(new EmployeeRoleDAOImplementation().getEmloyeeRoles());
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         placeCB.setItems(placeList);
         roleCB.setItems(roleList);
     }
 
     @FXML
     public void registerEmployee(ActionEvent event) {
-        String name=nameTF.getText();
-        String surname=surnameTF.getText();
-        String telephone=telephoneTF.getText();
-        Place place=placeCB.getValue();
-        String username=usernameTF.getText();
-        String password=passwordTF.getText();
-        Double salary=Double.parseDouble(salaryTF.getText());
-        String uniqueIdentifier=uniqueIdentifierTF.getText();
-        EmployeeRole role=roleCB.getValue();
-        if(name.equals("") || surname.equals("") || telephone.equals("") || place.equals("") || username.equals("") || password.equals("") || salary.equals("") || uniqueIdentifier.equals("") || role.equals("")){
+        String name = nameTF.getText();
+        String surname = surnameTF.getText();
+        String telephone = telephoneTF.getText();
+        Place place = placeCB.getValue();
+        String username = usernameTF.getText();
+        String password = passwordTF.getText();
+        Double salary = Double.parseDouble(salaryTF.getText());
+        String uniqueIdentifier = uniqueIdentifierTF.getText();
+        EmployeeRole role = roleCB.getValue();
+        if (name.equals("") || surname.equals("") || telephone.equals("") || place.equals("") || username.equals("") || password.equals("") || salary.equals("") || uniqueIdentifier.equals("") || role.equals("")) {
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
             return;
         }
-        boolean success=new PersonDAOImplementation().addEmployee(new Employee(999,name,surname,telephone,new Place(place.getZipCode(),place.getName()),username,password,salary,new EmployeeRole(role.getId(),role.getRole()),uniqueIdentifier));
-        JavaFXUtil.showInfoAlert(success,Util.INFO,Util.ADD_SUCCESS,Util.ADD_FAILURE);
+        if (uniqueIdentifier.length() != 13) {
+            JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.JMBG_LENGTH);
+            return;
+        }
+
+        boolean success = new PersonDAOImplementation().addEmployee(new Employee(999, name, surname, telephone, new Place(place.getZipCode(), place.getName()), username, password, salary, new EmployeeRole(role.getId(), role.getRole()), uniqueIdentifier));
+        JavaFXUtil.showInfoAlert(success, Util.INFO, Util.ADD_SUCCESS, Util.ADD_FAILURE);
         mainWindowController.searchEmployees();
         borderPane.getScene().getWindow().hide();
 
@@ -118,8 +124,8 @@ public class AddEmployeeController {
         ((AddEmployeeController) loader.getController()).addParameters(mainWindowController);
     }
 
-    public void addParameters(MainWindowController mainWindowController){
-        this.mainWindowController=mainWindowController;
+    public void addParameters(MainWindowController mainWindowController) {
+        this.mainWindowController = mainWindowController;
     }
 
 }

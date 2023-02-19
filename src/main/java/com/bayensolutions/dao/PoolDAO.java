@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PoolDAO {
     List<Pool> getPools();
+
+    boolean createPool(Pool pool);
 }
