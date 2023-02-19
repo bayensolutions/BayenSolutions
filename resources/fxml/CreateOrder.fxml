@@ -5,93 +5,84 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.CreateOrderController">
-   <children>
-      <BorderPane fx:id="borderPane" layoutX="62.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <Text fill="#404040" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacije o narudžbi" textAlignment="CENTER" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Georgia Bold Italic" size="24.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </Text>
-         </top>
-         <right>
-            <ImageView fitHeight="331.0" fitWidth="389.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../photos/order.png" />
-               </image>
-            </ImageView>
-         </right>
-         <left>
-            <VBox prefHeight="372.0" prefWidth="300.0" style="-fx-background-color: #01BF05;" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.CreateOrderController">
+   <top>
+      <Text fill="#404040" strokeType="OUTSIDE" strokeWidth="0.0" text="Informacije o narudžbi" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Georgia Bold Italic" size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <center>
+      <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                <children>
-                  <HBox prefHeight="106.0" prefWidth="300.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Klijent" textAlignment="CENTER" textFill="#01bf05">
-                           <font>
-                              <Font name="Georgia Bold Italic" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="20.0" top="40.0" />
-                           </HBox.margin>
-                        </Label>
-                        <ComboBox fx:id="clientCB" prefHeight="30.0" prefWidth="140.0">
-                           <HBox.margin>
-                              <Insets left="20.0" top="40.0" />
-                           </HBox.margin>
-                        </ComboBox>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #404040;" text="Adresa" textAlignment="CENTER" textFill="#01bf05">
-                           <font>
-                              <Font name="Georgia Bold Italic" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <TextField fx:id="addressTF" prefHeight="30.0" prefWidth="140.0" promptText="Adresa">
-                           <font>
-                              <Font name="Georgia" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="addItemsButton" alignment="CENTER" mnemonicParsing="false" onAction="#addItems" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #404040;" text="Dodaj stavke" textAlignment="CENTER" textFill="#01bf05">
-                           <font>
-                              <Font name="Georgia Bold" size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="75.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="Klijent" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="clientCB" prefHeight="30.0" prefWidth="180.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ComboBox>
                </children>
-            </VBox>
-         </left>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="100.0" text="Adresa" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="addressTF" prefHeight="30.0" prefWidth="180.0" promptText="Adresa">
+                     <font>
+                        <Font name="Georgia" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+               <children>
+                  <Pane prefHeight="30.0" prefWidth="100.0" />
+                  <Button fx:id="addItemsButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#addItems" prefHeight="30.0" prefWidth="180.0" text="Dodaj stavke" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

@@ -49,7 +49,7 @@ public class CreateOrderController {
 
     public void showStage(MainWindowController mainWindowController) throws IOException {
         FXMLLoader loader = new FXMLLoader(CreateOrderController.class.getResource("/fxml/CreateOrder.fxml"));
-        Scene scene = new Scene(loader.load(), 600, 400, Color.TRANSPARENT);
+        Scene scene = new Scene(loader.load(), 350, 200, Color.TRANSPARENT);
         Stage stage = new Stage();
         stage.setTitle("Bayen solutions - kreiranje narudžbe");
         String path = "resources/photos/icon.png";
