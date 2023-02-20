@@ -9,4 +9,6 @@ public interface EquipmentDAO {
     boolean createEquipment(Equipment equipment);
 
     boolean updateEquipment(Equipment equipment);
+
+    boolean deleteEquipment(Equipment equipment);
 }

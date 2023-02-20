@@ -6,4 +6,6 @@ public interface PrefabricatedItemDAO {
     boolean createPrefabricatedItem(PrefabricatedItem prefabricatedItem);
 
     boolean updatePrefabricatedItem(PrefabricatedItem prefabricatedItem);
+
+    boolean deletePrefabricatedItem(PrefabricatedItem prefabricatedItem);
 }

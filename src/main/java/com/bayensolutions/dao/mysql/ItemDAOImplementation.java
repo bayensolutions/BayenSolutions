@@ -114,5 +114,27 @@ public class ItemDAOImplementation implements ItemDAO {
         return false;
     }
 
+    @Override
+    public boolean deleteItem(Item item) {
+        boolean result = false;
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        String callStatementItem = "{call brisanjeArtikla(?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1, item.getId());
+            result = callableStatement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return result;
+    }
+
 
 }

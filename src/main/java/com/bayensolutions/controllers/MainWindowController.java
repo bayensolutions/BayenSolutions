@@ -582,7 +582,13 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void deletePool() {
-        // TODO:
+        ObservableList<Pool> selectedPools, allPools;
+        selectedPools = poolTableView.getSelectionModel().getSelectedItems();
+        allPools = poolTableView.getItems();
+        for(Pool pool: selectedPools){
+            allPools.remove(pool);
+            poolDAOImplementation.deletePool(pool);
+        }
     }
 
     @FXML
@@ -601,7 +607,13 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void deleteDeck() throws IOException {
-        // TODO
+        ObservableList<Deck> selectedDecks, allDecks;
+        selectedDecks = deckTableView.getSelectionModel().getSelectedItems();
+        allDecks = deckTableView.getItems();
+        for(Deck deck: selectedDecks){
+            allDecks.remove(deck);
+            deckDAOImplementation.deleteDeck(deck);
+        }
     }
 
     @FXML
@@ -620,7 +632,13 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void deleteRevetment() throws IOException {
-        // TODO
+        ObservableList<Revetment> selectedRevetments, allRevetments;
+        selectedRevetments = revetmentTableView.getSelectionModel().getSelectedItems();
+        allRevetments = revetmentTableView.getItems();
+        for(Revetment revetment: selectedRevetments){
+            allRevetments.remove(revetment);
+            revetmentDAOImplementation.deleteRevetment(revetment);
+        }
     }
 
     @FXML
@@ -639,6 +657,12 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void deleteEquipment() throws IOException {
-        // TODO
+        ObservableList<Equipment> selectedEquipment, allEquipment;
+        selectedEquipment = equipmentTableView.getSelectionModel().getSelectedItems();
+        allEquipment = equipmentTableView.getItems();
+        for(Equipment equipment: selectedEquipment){
+            allEquipment.remove(equipment);
+            equipmentDAOImplementation.deleteEquipment(equipment);
+        }
     }
 }

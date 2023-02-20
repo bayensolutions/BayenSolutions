@@ -10,4 +10,6 @@ public interface RevetmentDAO {
     boolean createRevetment(Revetment revetment);
 
     boolean updateRevetment(Revetment revetment);
+
+    boolean deleteRevetment(Revetment revetment);
 }

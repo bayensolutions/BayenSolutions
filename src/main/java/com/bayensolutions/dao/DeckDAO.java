@@ -10,4 +10,6 @@ public interface DeckDAO {
     boolean createDeck(Deck deck);
 
     boolean updateDeck(Deck deck);
+
+    boolean deleteDeck(Deck deck);
 }

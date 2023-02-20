@@ -93,4 +93,30 @@ public class DeckDAOImplementation implements DeckDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteDeck(Deck deck) {
+        boolean result = false;
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        String callStatementItem = "{call brisanjePlatforme(?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1, deck.getId());
+            result = callableStatement.executeUpdate() == 1;
+            if(result==true) {
+                PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+                result=prefabricatedItemDAOImplementation.deletePrefabricatedItem(new PrefabricatedItem(deck.getId(), deck.getName(), deck.getPrice(), deck.getDescription(), deck.getPoolDiameter(), deck.getPoolDepth()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return result;
+    }
 }

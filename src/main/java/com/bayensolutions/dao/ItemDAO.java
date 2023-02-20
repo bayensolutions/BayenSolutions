@@ -11,4 +11,6 @@ public interface ItemDAO {
     Item getItemById(Integer id);
 
     boolean updateItem(Item item);
+
+    boolean deleteItem(Item item);
 }

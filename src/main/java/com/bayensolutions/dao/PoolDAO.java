@@ -11,4 +11,6 @@ public interface PoolDAO {
     boolean createPool(Pool pool);
 
     boolean updatePool(Pool pool);
+
+    boolean deletePool(Pool pool);
 }

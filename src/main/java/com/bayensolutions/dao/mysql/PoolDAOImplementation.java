@@ -66,5 +66,31 @@ public class PoolDAOImplementation implements PoolDAO {
         return (itemDAOImplementation.updateItem(new Item(pool.getId(), pool.getName(), pool.getPrice(), pool.getDescription())) && prefabricatedItemDAOImplementation.updatePrefabricatedItem(new PrefabricatedItem(pool.getId(), pool.getName(), pool.getPrice(), pool.getDescription(), pool.getPoolDiameter(), pool.getPoolDepth())));
     }
 
+    @Override
+    public boolean deletePool(Pool pool) {
+        boolean result = false;
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        String callStatementItem = "{call brisanjeBazena(?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1, pool.getId());
+            result = callableStatement.executeUpdate() == 1;
+            if(result==true) {
+                PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+                result=prefabricatedItemDAOImplementation.deletePrefabricatedItem(new PrefabricatedItem(pool.getId(), pool.getName(), pool.getPrice(), pool.getDescription(), pool.getPoolDiameter(), pool.getPoolDepth()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return result;
+    }
+
 
 }

@@ -93,4 +93,30 @@ public class RevetmentDAOImplementation implements RevetmentDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteRevetment(Revetment revetment) {
+        boolean result = false;
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet rs = null;
+        String callStatementItem = "{call brisanjeObloge(?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatementItem);
+            callableStatement.setInt(1, revetment.getId());
+            result = callableStatement.executeUpdate() == 1;
+            if(result==true) {
+                PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+                result=prefabricatedItemDAOImplementation.deletePrefabricatedItem(new PrefabricatedItem(revetment.getId(), revetment.getName(), revetment.getPrice(), revetment.getDescription(), revetment.getPoolDiameter(), revetment.getPoolDepth()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return result;
+    }
 }
