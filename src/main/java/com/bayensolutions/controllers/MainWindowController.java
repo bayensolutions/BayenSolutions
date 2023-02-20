@@ -612,7 +612,10 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editRevetment() throws IOException {
-        // TODO
+        ObservableList<Revetment> selectedRevetments;
+        selectedRevetments = revetmentTableView.getSelectionModel().getSelectedItems();
+        EditRevetmentController editRevetmentController=new EditRevetmentController();
+        editRevetmentController.showStage(selectedRevetments.get(0),this);
     }
 
     @FXML

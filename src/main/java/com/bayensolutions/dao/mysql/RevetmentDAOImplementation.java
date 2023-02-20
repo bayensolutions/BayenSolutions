@@ -65,4 +65,32 @@ public class RevetmentDAOImplementation implements RevetmentDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean updateRevetment(Revetment revetment) {
+        ItemDAOImplementation itemDAOImplementation = new ItemDAOImplementation();
+        PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation = new PrefabricatedItemDAOImplementation();
+        boolean itemSuccess = itemDAOImplementation.updateItem(new Item(revetment.getId(), revetment.getName(), revetment.getPrice(), revetment.getDescription()));
+        boolean prefabricatedItemSuccess = prefabricatedItemDAOImplementation.updatePrefabricatedItem(new PrefabricatedItem(revetment.getId(), revetment.getName(), revetment.getPrice(), revetment.getDescription(), revetment.getPoolDiameter(), revetment.getPoolDepth()));
+
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        boolean result = false;
+        String callStatement = "{call izmjenaObloge(?,?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            callableStatement.setInt(1, revetment.getId());
+            callableStatement.setString(2, revetment.getTypeOfMaterial());
+            result = callableStatement.executeUpdate() == 1;
+            return (result && itemSuccess && prefabricatedItemSuccess);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return false;
+    }
 }

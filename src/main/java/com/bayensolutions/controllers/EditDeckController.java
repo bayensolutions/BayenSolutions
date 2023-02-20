@@ -91,6 +91,7 @@ public class EditDeckController {
 
         if(name.equals("") || price.equals("") || diameter.equals("") || depth.equals("") || description.equals("") || scope.equals("") || material.equals("")){
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
+            return;
         }
         DeckDAOImplementation deckDAOImplementation=new DeckDAOImplementation();
         Deck deck=new Deck(id,name,price,description,diameter,depth,scope,material);

@@ -8,4 +8,6 @@ public interface RevetmentDAO {
     List<Revetment> getRevetments();
 
     boolean createRevetment(Revetment revetment);
+
+    boolean updateRevetment(Revetment revetment);
 }
