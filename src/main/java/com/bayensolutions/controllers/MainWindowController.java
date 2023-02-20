@@ -593,7 +593,10 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editDeck() throws IOException {
-        // TODO
+        ObservableList<Deck> selectedDecks;
+        selectedDecks = deckTableView.getSelectionModel().getSelectedItems();
+        EditDeckController editDeckController=new EditDeckController();
+        editDeckController.showStage(selectedDecks.get(0),this);
     }
 
     @FXML

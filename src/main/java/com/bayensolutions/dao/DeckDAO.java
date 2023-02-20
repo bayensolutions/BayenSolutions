@@ -8,4 +8,6 @@ public interface DeckDAO {
     List<Deck> getDecks();
 
     boolean createDeck(Deck deck);
+
+    boolean updateDeck(Deck deck);
 }

@@ -81,7 +81,6 @@ public class EditPoolController {
         if(name.equals("") || price.equals("") || diameter.equals("") || depth.equals("") || description.equals("")){
             JavaFXUtil.showAlert(Alert.AlertType.ERROR, Util.ERROR, Util.NO_PARAMS);
         }
-        Item item=new Item(id,name,price,description);
         PoolDAOImplementation poolDAOImplementation=new PoolDAOImplementation();
         JavaFXUtil.showInfoAlert(poolDAOImplementation.updatePool(new Pool(id,name,price,description,diameter,depth)),Util.INFO,Util.ADD_SUCCESS,Util.ADD_FAILURE);
         mainWindowController.searchPools();
