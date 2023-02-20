@@ -60,4 +60,33 @@ public class EquipmentDAOImplementation implements EquipmentDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean updateEquipment(Equipment equipment) {
+        ItemDAOImplementation itemDAOImplementation = new ItemDAOImplementation();
+        boolean itemSuccess = itemDAOImplementation.updateItem(new Item(equipment.getId(), equipment.getName(), equipment.getPrice(), equipment.getDescription()));
+
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        boolean result = false;
+        String callStatement = "{call izmjenaOpreme(?,?,?,?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            callableStatement.setInt(1,equipment.getId());
+            callableStatement.setInt(2,equipment.getWarrantyDuration());
+            callableStatement.setInt(3,equipment.getEquipmentType().getId());
+            callableStatement.setInt(4,equipment.getEquipmentProducer().getId());
+
+            result = callableStatement.executeUpdate() == 1;
+            return (result && itemSuccess);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return false;
+    }
 }

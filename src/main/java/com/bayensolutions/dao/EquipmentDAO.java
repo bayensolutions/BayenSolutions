@@ -7,4 +7,6 @@ public interface EquipmentDAO {
     List<Equipment> getEquipment();
 
     boolean createEquipment(Equipment equipment);
+
+    boolean updateEquipment(Equipment equipment);
 }

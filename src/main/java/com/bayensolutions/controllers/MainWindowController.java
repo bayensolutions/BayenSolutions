@@ -631,7 +631,10 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void editEquipment() throws IOException {
-        // TODO
+        ObservableList<Equipment> selectedEquipment;
+        selectedEquipment = equipmentTableView.getSelectionModel().getSelectedItems();
+        EditEquipmentController editEquipmentController=new EditEquipmentController();
+        editEquipmentController.showStage(selectedEquipment.get(0),this);
     }
 
     @FXML
