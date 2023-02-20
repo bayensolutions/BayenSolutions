@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bayensolutions.controllers.EditRevetmentController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <VBox prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <children>
+                  <ImageView fitHeight="300.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../photos/IMG_20211210_234814_751.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets right="5.0" top="60.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+         </right>
+         <left>
+            <VBox prefHeight="200.0" prefWidth="300.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Naziv">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentName" prefHeight="30.0" prefWidth="160.0" promptText="Naziv">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Cijena">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentPrice" prefHeight="30.0" prefWidth="120.0" promptText="Cijena">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" text="KM">
+                           <font>
+                              <Font name="Georgia Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Prečnik bazena">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentDiameter" prefHeight="30.0" prefWidth="120.0" promptText="Prečnik bazena">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" text="m">
+                           <font>
+                              <Font name="Georgia Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Dubina bazena">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentDepth" prefHeight="30.0" prefWidth="120.0" promptText="Dubina bazena">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="30.0" text="m">
+                           <font>
+                              <Font name="Georgia Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Vrsta materijala">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentMaterial" prefHeight="30.0" prefWidth="160.0" promptText="Vrsta materijala">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="80.0" prefWidth="300.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10;" text="Opis">
+                           <font>
+                              <Font name="Georgia" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="revetmentDescription" prefHeight="80.0" prefWidth="160.0" promptText="Opis...">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button fx:id="editRevetmentButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editRevetment" prefWidth="140.0" style="-fx-background-color: #6BCBE4; -fx-background-radius: 10; -fx-text-fill: #000000;" text="Izmijeni" textAlignment="CENTER" textFill="#6bcbe3">
+                           <font>
+                              <Font name="Georgia Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <HBox prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Informacije o artiklu" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="599.4491577148438">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
