@@ -59,5 +59,12 @@ public class PoolDAOImplementation implements PoolDAO {
         return false;
     }
 
+    @Override
+    public boolean updatePool(Pool pool) {
+        ItemDAOImplementation itemDAOImplementation=new ItemDAOImplementation();
+        PrefabricatedItemDAOImplementation prefabricatedItemDAOImplementation=new PrefabricatedItemDAOImplementation();
+        return (itemDAOImplementation.updateItem(new Item(pool.getId(), pool.getName(), pool.getPrice(), pool.getDescription())) && prefabricatedItemDAOImplementation.updatePrefabricatedItem(new PrefabricatedItem(pool.getId(), pool.getName(), pool.getPrice(), pool.getDescription(), pool.getPoolDiameter(), pool.getPoolDepth())));
+    }
+
 
 }

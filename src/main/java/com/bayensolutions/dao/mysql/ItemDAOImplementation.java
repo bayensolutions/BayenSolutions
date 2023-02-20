@@ -87,4 +87,32 @@ public class ItemDAOImplementation implements ItemDAO {
         }
         return null;
     }
+
+    @Override
+    public boolean updateItem(Item item) {
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        boolean result = false;
+        String callStatement = "{call izmjenaArtikla(?,?,?,?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            callableStatement.setInt(1, item.getId());
+            callableStatement.setString(2,item.getName());
+            callableStatement.setDouble(3,item.getPrice());
+            callableStatement.setString(4, item.getDescription());
+            result=callableStatement.executeUpdate() == 1;
+            return result;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return false;
+    }
+
+
 }

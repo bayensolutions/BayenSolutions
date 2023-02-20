@@ -9,4 +9,6 @@ public interface PoolDAO {
     List<Pool> getPools();
 
     boolean createPool(Pool pool);
+
+    boolean updatePool(Pool pool);
 }

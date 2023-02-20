@@ -28,4 +28,28 @@ public class PrefabricatedItemDAOImplementation implements PrefabricatedItemDAO 
         }
         return false;
     }
+
+    @Override
+    public boolean updatePrefabricatedItem(PrefabricatedItem prefabricatedItem) {
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        boolean result = false;
+        String callStatement = "{call izmjenaMontažnogArtikla(?,?,?)}";
+
+        try {
+            connection = ConnectionPool.getInstance().checkOut();
+            callableStatement = connection.prepareCall(callStatement);
+            callableStatement.setInt(1, prefabricatedItem.getId());
+            callableStatement.setDouble(2,prefabricatedItem.getPoolDiameter());
+            callableStatement.setDouble(3,prefabricatedItem.getPoolDepth());
+            result=callableStatement.executeUpdate() == 1;
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionPool.getInstance().checkIn(connection);
+            //DBUtil.close(callableStatement);
+        }
+        return false;
+    }
 }

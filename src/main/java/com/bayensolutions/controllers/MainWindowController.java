@@ -573,8 +573,11 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    private void editPool() {
-        // TODO:
+    private void editPool() throws IOException {
+        ObservableList<Pool> selectedPools;
+        selectedPools = poolTableView.getSelectionModel().getSelectedItems();
+        EditPoolController editPoolController=new EditPoolController();
+        editPoolController.showStage(selectedPools.get(0),this);
     }
 
     @FXML

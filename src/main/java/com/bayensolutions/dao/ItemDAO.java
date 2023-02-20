@@ -9,4 +9,6 @@ public interface ItemDAO {
     boolean changeItemInformation(Item oldItem, Item newItem);
 
     Item getItemById(Integer id);
+
+    boolean updateItem(Item item);
 }
